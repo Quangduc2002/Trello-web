@@ -1,0 +1,283 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>icon</title>
+      <meta
+        name="viewport"
+        content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+      />
+
+      <link rel="stylesheet" href="icon-css.css" />
+
+      <style>
+        *{margin: 0;padding: 0;list-style: none;}
+        body { color: #696969; font: 12px/1.5 tahoma, arial, sans-serif; }
+        a { color: #333; text-decoration: underline; }
+        a:hover { color: rgb(9, 73, 209); }
+        .header { color: #333; text-align: center; min-height: 153px; font-size: 14px; }
+        .header .logo svg { height: 120px; width: 120px; }
+        .header h1 { font-size: 42px; padding: 26px 0 10px 0; }
+        .header sup {font-size: 14px; margin: 8px 0 0 8px; position: absolute; color: #7b7b7b; }
+        .info {
+          color: #999;
+          font-weight: normal;
+          max-width: 346px;
+          margin: 0 auto;
+          padding: 20px 0;
+          font-size: 14px;
+        }
+
+        .icons { max-width: 1190px; margin: 0 auto; }
+        .icons ul { text-align: center; }
+        .icons ul li {
+          vertical-align: top;
+          width: 120px;
+          display: inline-block;
+          text-align: center;
+          background-color: rgba(0,0,0,.02);
+          border-radius: 3px;
+          padding: 29px 0 10px 0;
+          margin-right: 10px;
+          margin-top: 10px;
+          transition: all 0.6s ease;
+        }
+        .icons ul li:hover { background-color: rgba(0,0,0,.06); }
+        .icons ul li:hover span { color: #3c75e4; opacity: 1; }
+        .icons ul li .unicode { color: #8c8c8c; opacity: 0.3; }
+        .icons ul li h4 {
+          font-weight: normal;
+          padding: 10px 0 5px 0;
+          display: block;
+          color: #8c8c8c;
+          font-size: 14px;
+          line-height: 12px;
+          opacity: 0.8;
+        }
+        .icons ul li:hover h4 { opacity: 1; }
+        .icons ul li svg { width: 24px; height: 24px; }
+        .icons ul li:hover { color: #3c75e4; }
+        .footer { text-align: center; padding: 10px 0 90px 0; }
+        .footer a { text-align: center; padding: 10px 0 90px 0; color: #696969;}
+        .footer a:hover { color: #0949d1; }
+        .links { text-align: center; padding: 50px 10px; font-size: 16px; }
+
+        .icons ul li.class-icon { font-size: 21px; line-height: 21px; padding-bottom: 20px;
+          font-size: 21px;
+          line-height: 21px;
+          padding-bottom: 20px;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .icons ul li.class-icon p { font-size: 12px; }
+        .icons ul li.class-icon [class^="icon-"]{ font-size: 26px; }
+        h3 {
+          text-align: center;
+        }
+
+        
+.icon-alt-arrow-down, .icon-clip-board, .icon-close, .icon-cloud, .icon-copy, .icon-download, .icon-face-book, .icon-fire, .icon-grid-3, .icon-hamburger-menu, .icon-icon-dark, .icon-icon-light, .icon-icon-project, .icon-plus, .icon-scissors, .icon-square-plus, .icon-tiktok, .icon-trash, .icon-user {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.icon-alt-arrow-down {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' fill-rule='evenodd' d='M4.43 8.512a.75.75 0 011.058-.081L12 14.012l6.512-5.581a.75.75 0 11.976 1.138l-7 6a.75.75 0 01-.976 0l-7-6a.75.75 0 01-.081-1.057' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.icon-clip-board {
+  width: 0.75em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' width='384' height='512'%3E%3Cpath fill='black' d='M280 64h40c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128c0-35.3 28.7-64 64-64h49.6C121 27.5 153.3 0 192 0s71 27.5 78.4 64zM64 112c-8.8 0-16 7.2-16 16v320c0 8.8 7.2 16 16 16h256c8.8 0 16-7.2 16-16V128c0-8.8-7.2-16-16-16h-16v24c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24v-24zm128-8a24 24 0 100-48 24 24 0 100 48'/%3E%3C/svg%3E");
+}
+
+.icon-close {
+  width: 0.75em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512' width='384' height='512'%3E%3Cpath fill='black' d='M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3l105.4 105.3c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256z'/%3E%3C/svg%3E");
+}
+
+.icon-cloud {
+  width: 1.25em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512' width='640' height='512'%3E%3Cpath fill='black' d='M0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4 4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336'/%3E%3C/svg%3E");
+}
+
+.icon-copy {
+  width: 0.88em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' width='448' height='512'%3E%3Cpath fill='black' d='M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h140.1l67.9 67.9V320c0 8.8-7.2 16-16 16m-192 48h192c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9l-67.8-67.9c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64v256c0 35.3 28.7 64 64 64M64 128c-35.3 0-64 28.7-64 64v256c0 35.3 28.7 64 64 64h192c35.3 0 64-28.7 64-64v-32h-48v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h32v-48z'/%3E%3C/svg%3E");
+}
+
+.icon-download {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cg fill='black' stroke-width='0'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7zM5 18v2h14v-2z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.icon-face-book {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='black' d='M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256c0 120 82.7 220.8 194.2 248.5V334.2h-52.8V256h52.8v-33.7c0-87.1 39.4-127.5 125-127.5 16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287v175.9C413.8 494.8 512 386.9 512 256'/%3E%3C/svg%3E");
+}
+
+.icon-fire {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024' width='1024' height='1024'%3E%3Cpath fill='black' d='M834.1 469.2A347.5 347.5 0 00751.2 354l-29.1-26.7a8.09 8.09 0 00-13 3.3l-13 37.3c-8.1 23.4-23 47.3-44.1 70.8-1.4 1.5-3 1.9-4.1 2s-2.8-.1-4.3-1.5c-1.4-1.2-2.1-3-2-4.8 3.7-60.2-14.3-128.1-53.7-202C555.3 171 510 123.1 453.4 89.7l-41.3-24.3c-5.4-3.2-12.3 1-12 7.3l2.2 48c1.5 32.8-2.3 61.8-11.3 85.9-11 29.5-26.8 56.9-47 81.5a295.6 295.6 0 01-47.5 46.1 352.6 352.6 0 00-100.3 121.5A347.75 347.75 0 00160 610c0 47.2 9.3 92.9 27.7 136a349.4 349.4 0 0075.5 110.9c32.4 32 70 57.2 111.9 74.7C418.5 949.8 464.5 959 512 959s93.5-9.2 136.9-27.3A348.6 348.6 0 00760.8 857c32.4-32 57.8-69.4 75.5-110.9a344.2 344.2 0 0027.7-136c0-48.8-10-96.2-29.9-140.9' color='black'/%3E%3C/svg%3E");
+}
+
+.icon-grid-3 {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' fill-rule='evenodd' d='M4 5a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1zm0 6a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1zm7-7a1 1 0 00-1 1v2a1 1 0 001 1h2a1 1 0 001-1V5a1 1 0 00-1-1zm-1 7a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1zm7-7a1 1 0 00-1 1v2a1 1 0 001 1h2a1 1 0 001-1V5a1 1 0 00-1-1zm-1 7a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1zM5 16a1 1 0 00-1 1v2a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 00-1-1zm5 1a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1zm7-1a1 1 0 00-1 1v2a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 00-1-1z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.icon-hamburger-menu {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' fill-rule='evenodd' d='M20.75 7a.75.75 0 01-.75.75H4a.75.75 0 010-1.5h16a.75.75 0 01.75.75m0 5a.75.75 0 01-.75.75H4a.75.75 0 010-1.5h16a.75.75 0 01.75.75m0 5a.75.75 0 01-.75.75H4a.75.75 0 010-1.5h16a.75.75 0 01.75.75' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.icon-icon-dark {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cg fill='black' stroke-width='0'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M14 2c1.82 0 3.53.5 5 1.35-2.99 1.73-5 4.95-5 8.65s2.01 6.92 5 8.65A10 10 0 0114 22C8.48 22 4 17.52 4 12S8.48 2 14 2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.icon-icon-light {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cg fill='black' stroke-width='0'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 9c1.65 0 3 1.35 3 3s-1.35 3-3 3-3-1.35-3-3 1.35-3 3-3m0-2c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.icon-icon-project {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='black' d='M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 010-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 11-1.072 1.05A2.5 2.5 0 012 11.5Zm10.5-1h-8a1 1 0 00-1 1v6.708A2.5 2.5 0 014.5 9h8ZM5 12.25a.25.25 0 01.25-.25h3.5a.25.25 0 01.25.25v3.25a.25.25 0 01-.4.2l-1.45-1.087a.25.25 0 00-.3 0L5.4 15.7a.25.25 0 01-.4-.2Z'/%3E%3C/svg%3E");
+}
+
+.icon-plus {
+  width: 0.88em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' width='448' height='512'%3E%3Cpath fill='black' d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32v144H48c-17.7 0-32 14.3-32 32s14.3 32 32 32h144v144c0 17.7 14.3 32 32 32s32-14.3 32-32V288h144c17.7 0 32-14.3 32-32s-14.3-32-32-32H256z'/%3E%3C/svg%3E");
+}
+
+.icon-scissors {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='black' d='m256 192-39.5-39.5c4.9-12.6 7.5-26.2 7.5-40.5C224 50.1 173.9 0 112 0S0 50.1 0 112s50.1 112 112 112c14.3 0 27.9-2.7 40.5-7.5L192 256l-39.5 39.5c-12.6-4.9-26.2-7.5-40.5-7.5C50.1 288 0 338.1 0 400s50.1 112 112 112 112-50.1 112-112c0-14.3-2.7-27.9-7.5-40.5L499.2 76.8c7.1-7.1 7.1-18.5 0-25.6-28.3-28.3-74.1-28.3-102.4 0zm22.6 150.6 118.2 118.2c28.3 28.3 74.1 28.3 102.4 0 7.1-7.1 7.1-18.5 0-25.6L342.6 278.6zM64 112a48 48 0 1196 0 48 48 0 11-96 0m48 240a48 48 0 110 96 48 48 0 110-96'/%3E%3C/svg%3E");
+}
+
+.icon-square-plus {
+  width: 0.88em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' width='448' height='512'%3E%3Cpath fill='black' d='M64 80c-8.8 0-16 7.2-16 16v320c0 8.8 7.2 16 16 16h320c8.8 0 16-7.2 16-16V96c0-8.8-7.2-16-16-16zM0 96c0-35.3 28.7-64 64-64h320c35.3 0 64 28.7 64 64v320c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64zm200 248v-64h-64c-13.3 0-24-10.7-24-24s10.7-24 24-24h64v-64c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24h-64v64c0 13.3-10.7 24-24 24s-24-10.7-24-24'/%3E%3C/svg%3E");
+}
+
+.icon-tiktok {
+  width: 0.88em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' width='448' height='512'%3E%3Cpath fill='black' d='M448 209.91a210.06 210.06 0 01-122.77-39.25v178.72A162.55 162.55 0 11185 188.31v89.89a74.62 74.62 0 1052.23 71.18V0h88a121 121 0 001.86 22.17A122.18 122.18 0 00381 102.39a121.43 121.43 0 0067 20.14Z'/%3E%3C/svg%3E");
+}
+
+.icon-trash {
+  width: 0.88em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' width='448' height='512'%3E%3Cpath fill='black' d='M135.2 17.7 128 32H32C14.3 32 0 46.3 0 64s14.3 32 32 32h384c17.7 0 32-14.3 32-32s-14.3-32-32-32h-96l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7M416 128H32l21.2 339c1.6 25.3 22.6 45 47.9 45h245.8c25.3 0 46.3-19.7 47.9-45z'/%3E%3C/svg%3E");
+}
+
+.icon-user {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cg fill='black' stroke-width='0'%3E%3Cpath d='M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-5.95a2.5 2.5 0 100-5 2.5 2.5 0 000 5'/%3E%3Cpath d='M2 1a2 2 0 00-2 2v9.5A1.5 1.5 0 001.5 14h.653a5.4 5.4 0 011.066-2H1V3a1 1 0 011-1h12a1 1 0 011 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 001.5-1.5V3a2 2 0 00-2-2z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+
+
+      </style>
+    </head>
+
+    <body>
+      <div class="header">
+        <h1>icon</h1>
+      </div>
+      <div class="icons">
+        <h3>Icon Monochrome</h3>
+        <ul>
+          <li class="class-icon">
+                <i class="icon-alt-arrow-down"></i>
+
+                <p class="name">icon-alt-arrow-down</p>
+            </li><li class="class-icon">
+                <i class="icon-clip-board"></i>
+
+                <p class="name">icon-clip-board</p>
+            </li><li class="class-icon">
+                <i class="icon-close"></i>
+
+                <p class="name">icon-close</p>
+            </li><li class="class-icon">
+                <i class="icon-cloud"></i>
+
+                <p class="name">icon-cloud</p>
+            </li><li class="class-icon">
+                <i class="icon-copy"></i>
+
+                <p class="name">icon-copy</p>
+            </li><li class="class-icon">
+                <i class="icon-download"></i>
+
+                <p class="name">icon-download</p>
+            </li><li class="class-icon">
+                <i class="icon-face-book"></i>
+
+                <p class="name">icon-face-book</p>
+            </li><li class="class-icon">
+                <i class="icon-fire"></i>
+
+                <p class="name">icon-fire</p>
+            </li><li class="class-icon">
+                <i class="icon-grid-3"></i>
+
+                <p class="name">icon-grid-3</p>
+            </li><li class="class-icon">
+                <i class="icon-hamburger-menu"></i>
+
+                <p class="name">icon-hamburger-menu</p>
+            </li><li class="class-icon">
+                <i class="icon-icon-dark"></i>
+
+                <p class="name">icon-icon-dark</p>
+            </li><li class="class-icon">
+                <i class="icon-icon-light"></i>
+
+                <p class="name">icon-icon-light</p>
+            </li><li class="class-icon">
+                <i class="icon-icon-project"></i>
+
+                <p class="name">icon-icon-project</p>
+            </li><li class="class-icon">
+                <i class="icon-plus"></i>
+
+                <p class="name">icon-plus</p>
+            </li><li class="class-icon">
+                <i class="icon-scissors"></i>
+
+                <p class="name">icon-scissors</p>
+            </li><li class="class-icon">
+                <i class="icon-square-plus"></i>
+
+                <p class="name">icon-square-plus</p>
+            </li><li class="class-icon">
+                <i class="icon-tiktok"></i>
+
+                <p class="name">icon-tiktok</p>
+            </li><li class="class-icon">
+                <i class="icon-trash"></i>
+
+                <p class="name">icon-trash</p>
+            </li><li class="class-icon">
+                <i class="icon-user"></i>
+
+                <p class="name">icon-user</p>
+            </li>
+        </ul>
+
+        <br />
+
+        <h3>Icon Multiplechrome</h3>
+        <ul>
+        
+      </ul>
+      </div>
+      <p class="links">
+
+        <a href="https://github.com/hunghg255/csvgtocss">GitHub</a>
+
+      </p>
+    </body>
+  </html>

@@ -1,0 +1,32 @@
+.input-search {
+  .ant-input-affix-wrapper,
+  .ant-btn {
+    background-color: var(--background-body) !important;
+    color: var(--bs-navbar-color) !important;
+
+    &:hover,
+    &:focus-within,
+    &:focus {
+      border: 1px solid #d9d9d9 !important;
+      box-shadow: none;
+    }
+  }
+
+  .ant-input-suffix .ant-input-clear-icon {
+    color: var(--bs-navbar-color) !important;
+  }
+}
+
+.ant-input-search
+  > .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button:not(.ant-btn-primary) {
+  color: var(--bs-navbar-color);
+}
+
+.workspace {
+  .ant-popover-inner {
+    padding: 8px 0px !important;
+    background-color: var(--background-modal);
+  }
+}
