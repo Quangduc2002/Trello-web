@@ -4,9 +4,10 @@ import { CSS } from '@dnd-kit/utilities';
 
 interface IBoardContent {
   dataCard: any;
+  addContentColumn?: any;
 }
 
-function BoardContent({ dataCard }: IBoardContent) {
+function BoardContent({ dataCard, addContentColumn }: IBoardContent) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: dataCard._id,
     data: { ...dataCard },
@@ -19,13 +20,16 @@ function BoardContent({ dataCard }: IBoardContent) {
     opacity: isDragging ? 0.5 : undefined,
   };
 
-  console.log(dataCard);
-
   return (
     <div
-      className={`bg-[--background-modal] px-[12px] py-[8px] rounded-xl 
+      className={`bg-[--background-modal] px-[12px] py-[8px] rounded-xl z-10
         ${dataCard?.FE_PlaceholderCard ? 'invisible' : 'visible'}
-      `}
+        ${
+          addContentColumn === dataCard?.columnId && dataCard?.FE_PlaceholderCard
+            ? 'hidden'
+            : 'block'
+        }
+        `}
       ref={setNodeRef}
       {...attributes}
       {...listeners}
@@ -33,7 +37,9 @@ function BoardContent({ dataCard }: IBoardContent) {
         ...style,
       }}
     >
-      <Text className='text-[--bs-navbar-color]'>{dataCard?.title}</Text>
+      <div>
+        <Text className='text-[--bs-navbar-color]'>{dataCard?.title}</Text>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classNames from 'classnames';
-
+import { TColor } from '@/styles/color/color.variables';
 interface TextProps {
   children: React.ReactNode;
   type?:
@@ -22,6 +22,7 @@ interface TextProps {
     | 'caption2'
     | 'specific-link'
     | undefined;
+  color?: TColor;
   disabled?: boolean;
   state?: null | 'disable';
   className?: string;
@@ -38,8 +39,9 @@ const Text: React.FC<TextProps> = ({
   children,
   element = 'p',
   style,
+  color,
 }) => {
-  const classes = classNames(type, { 'text-disable': disabled }, className);
+  const classes = classNames(type, color, { 'text-disable': disabled }, className);
 
   return React.createElement(
     element,

@@ -1,5 +1,4 @@
 export const ROUTE_PATH = {
   HOME: '/',
-  PROJECT: '/project',
-  ABOUT: '/about',
+  BOARD_DETAIL: (slug: any) => `/board/${slug}`,
 };

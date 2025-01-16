@@ -30,3 +30,107 @@
     background-color: var(--background-modal);
   }
 }
+
+.form-card {
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+}
+
+.ant-form-item-explain-error {
+  margin: 10px 0px 0px 10px;
+}
+
+.ant-form-item.ant-form-item-has-error {
+  span.ant-input-affix-wrapper.ant-input-password,
+  .ant-form-item-control-input-content > .ant-input,
+  .ant-form-item-control-input-content > .ant-input-affix-wrapper,
+  .input-date,
+  .ant-input-group-wrapper {
+    border-width: 1.5px !important;
+    border-color: var(--error-main) !important;
+  }
+}
+
+.ant-input-number-group-wrapper.ant-input-number-group-wrapper-status-error {
+  border-width: 1.5px !important;
+  border-color: var(--error-main) !important;
+}
+
+.ant-select {
+  &:hover {
+    .ant-select-selector {
+      border-width: 1.5px !important;
+      border-color: var(--primary-main) !important;
+    }
+  }
+}
+
+.ant-select-open {
+  &.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background: #ffffff !important;
+    border: 1.5px solid #405f2d !important;
+  }
+
+  .ant-select-arrow {
+    transform: rotate(-180deg);
+  }
+}
+
+.ant-select {
+  height: 38px !important;
+}
+
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer)
+  .ant-select-selector {
+  box-shadow: none;
+}
+
+.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 10px;
+}
+
+.ant-form-item-required {
+  &::before {
+    display: none !important;
+  }
+  &::after {
+    content: '*' !important;
+    display: block !important;
+    color: var(--error-main);
+  }
+}
+
+.ant-col.ant-form-item-label {
+  padding: 0;
+  margin-bottom: 8px;
+  text-align: start !important;
+  label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--text-primary);
+    align-items: center;
+    &::after {
+      content: '';
+      display: block !important;
+      color: var(--error-main);
+      visibility: inherit !important;
+      margin-left: 4px;
+    }
+  }
+}
+
+.ant-form-item .ant-form-item-explain-error {
+  margin: 8px 0 0 !important;
+  color: var(--error-main) !important;
+}
+
+.ant-select-focused:where(.css-dev-only-do-not-override-7ny38l).ant-select-outlined:not(
+    .ant-select-disabled
+  ):not(.ant-select-customize-input):not(.ant-pagination-size-changer)
+  .ant-select-selector {
+  border: 1.5px solid var(--divider-default);
+}
