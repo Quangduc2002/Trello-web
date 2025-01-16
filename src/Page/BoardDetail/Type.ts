@@ -5,3 +5,4 @@ export const ACTIVE_DRAG_ITEM_TYPE = {
 };
 export const atomDragItemType = atom<any | null>(null);
 export const atomDragItemId = atom<any | null>(null);
+export const atomData = atom<any | null>([]);

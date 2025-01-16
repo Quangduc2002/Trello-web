@@ -25,7 +25,9 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@types/lodash": "^4.17.14",
+    "ahooks": "^3.8.4",
     "antd": "^5.23.0",
+    "axios": "^1.7.9",
     "classnames": "^2.5.1",
     "csvgtocss": "^0.1.1",
     "esno": "^4.8.0",
@@ -35,6 +37,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",
+    "sonner": "^1.7.1",
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {

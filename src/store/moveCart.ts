@@ -2,7 +2,7 @@ import { placeholderCard } from '@/utils/placeholderCard';
 import { cloneDeep, isEmpty } from 'lodash';
 
 interface IMoveCartBetweenColumns {
-  setDataColumn: (value: any) => void;
+  setData: (value: any) => void;
   overColumn: any;
   overCardId: any;
   active: any;
@@ -13,7 +13,7 @@ interface IMoveCartBetweenColumns {
 }
 
 export const moveCartBetweenColumns = ({
-  setDataColumn,
+  setData,
   overColumn,
   overCardId,
   active,
@@ -22,7 +22,7 @@ export const moveCartBetweenColumns = ({
   acctiveDragItemId,
   activeDragItemData,
 }: IMoveCartBetweenColumns) => {
-  setDataColumn((prev: any) => {
+  setData((prev: any) => {
     const overCardIndex = overColumn?.cards?.findIndex((cart: any) => cart?._id === overCardId);
     let newIndex: number;
     const isBelowOverItem =
@@ -33,10 +33,13 @@ export const moveCartBetweenColumns = ({
 
     newIndex = overCardIndex >= 0 ? overCardIndex + modifier : overColumn?.cards?.length + 1;
     const nextColumns = cloneDeep(prev);
-    const nextActiveColumn: any = nextColumns?.find(
+
+    const nextActiveColumn: any = nextColumns?.columns?.find(
       (column: any) => column?._id === activeColumn?._id,
     );
-    const nextOverColumn = nextColumns?.find((column: any) => column?._id === overColumn?._id);
+    const nextOverColumn = nextColumns?.columns?.find(
+      (column: any) => column?._id === overColumn?._id,
+    );
 
     // nextActiveColumn column cũ
     if (nextActiveColumn) {
