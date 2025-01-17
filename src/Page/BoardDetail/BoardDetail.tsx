@@ -24,6 +24,7 @@ import { ACTIVE_DRAG_ITEM_TYPE, atomData, atomDragItemType } from './Type';
 import {
   serviceAddColumn,
   serviceBoardDetail,
+  serviceMoveCardColumn,
   serviceUpdateCards,
   serviceUpdateColumns,
 } from './service';
@@ -80,7 +81,6 @@ function BoardDetail() {
       const newBoard = { ...res?.data[0] };
       // sắp sếp column
       newBoard.columns = SortColumns(newBoard);
-
       // sắp xếp card
       newBoard?.columns?.map((column: any) => {
         if (isEmpty(column?.cards)) {
@@ -126,6 +126,10 @@ function BoardDetail() {
     },
   });
 
+  const { run: runMoveCardColumn } = useRequest(serviceMoveCardColumn, {
+    manual: true,
+  });
+
   const handleDragStart = (event: any) => {
     setAcctiveDragItemId(event?.active?.id);
     setAcctiveDragItemType(
@@ -160,7 +164,7 @@ function BoardDetail() {
       return;
     }
 
-    if (activeColumn?._id !== overColumn?._id) {
+    if (oldColumnDragCard?._id !== overColumn?._id) {
       moveCartBetweenColumns({
         setData,
         overColumn,
@@ -170,6 +174,9 @@ function BoardDetail() {
         activeColumn,
         acctiveDragItemId,
         activeDragItemData,
+        triggerForm: 'handleDragOver',
+        moveCardToColumn,
+        oldColumnDragCard,
       });
     }
   };
@@ -194,7 +201,7 @@ function BoardDetail() {
         return;
       }
 
-      if (activeColumn?._id !== overColumn?._id) {
+      if (oldColumnDragCard?._id !== overColumn?._id) {
         moveCartBetweenColumns({
           setData,
           overColumn,
@@ -204,6 +211,9 @@ function BoardDetail() {
           activeColumn,
           acctiveDragItemId,
           activeDragItemData,
+          triggerForm: 'handleDragEnd',
+          moveCardToColumn,
+          oldColumnDragCard,
         });
       } else {
         const activeCardIndex = activeColumn?.cards?.findIndex(
@@ -269,6 +279,21 @@ function BoardDetail() {
     setData(newBoard);
 
     runMoveCard(columnId, { cardOrderIds: cardOrderIds });
+  };
+
+  const moveCardToColumn = ({ currentCardId, prevColumnId, nextColumnId, orderColums }: any) => {
+    const newBoard = { ...data };
+    newBoard.columns = orderColums?.column;
+
+    runMoveCardColumn({
+      currentCardId,
+      prevColumnId,
+      nextColumnId,
+      prevCardOrderIds: orderColums?.columns?.find((column: any) => column?._id === prevColumnId)
+        ?.cardOrderIds,
+      nextCardOrderIds: orderColums?.columns?.find((column: any) => column?._id === nextColumnId)
+        ?.cardOrderIds,
+    });
   };
 
   if (dataBoardDetail?.data?.length === 0) {

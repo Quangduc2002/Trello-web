@@ -19,3 +19,7 @@ export const serviceAddCard = (data: any) => {
 export const serviceAddColumn = (data: any) => {
   return axiosInstant.post(`/column`, data);
 };
+
+export const serviceMoveCardColumn = (data: any) => {
+  return axiosInstant.put(`/column/move-card-column`, data);
+};

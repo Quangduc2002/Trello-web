@@ -9,7 +9,7 @@ interface IBoardContent {
 
 function BoardContent({ dataCard, addContentColumn }: IBoardContent) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: dataCard._id,
+    id: dataCard?._id,
     data: { ...dataCard },
   });
 

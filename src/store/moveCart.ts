@@ -1,6 +1,13 @@
 import { placeholderCard } from '@/utils/placeholderCard';
 import { cloneDeep, isEmpty } from 'lodash';
 
+interface IMoveCardToColumn {
+  currentCardId: any;
+  prevColumnId: any;
+  nextColumnId: any;
+  orderColums: any;
+}
+
 interface IMoveCartBetweenColumns {
   setData: (value: any) => void;
   overColumn: any;
@@ -10,6 +17,14 @@ interface IMoveCartBetweenColumns {
   activeColumn: any;
   acctiveDragItemId: any;
   activeDragItemData: any;
+  triggerForm: string;
+  moveCardToColumn: ({
+    currentCardId,
+    prevColumnId,
+    nextColumnId,
+    orderColums,
+  }: IMoveCardToColumn) => any;
+  oldColumnDragCard: any;
 }
 
 export const moveCartBetweenColumns = ({
@@ -21,6 +36,9 @@ export const moveCartBetweenColumns = ({
   activeColumn,
   acctiveDragItemId,
   activeDragItemData,
+  triggerForm,
+  moveCardToColumn,
+  oldColumnDragCard,
 }: IMoveCartBetweenColumns) => {
   setData((prev: any) => {
     const overCardIndex = overColumn?.cards?.findIndex((cart: any) => cart?._id === overCardId);
@@ -75,6 +93,14 @@ export const moveCartBetweenColumns = ({
       nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card: any) => card._id);
     }
 
+    if (triggerForm === 'handleDragEnd') {
+      moveCardToColumn({
+        currentCardId: acctiveDragItemId,
+        prevColumnId: oldColumnDragCard._id,
+        nextColumnId: nextOverColumn._id,
+        orderColums: nextColumns,
+      });
+    }
     return nextColumns;
   });
 };

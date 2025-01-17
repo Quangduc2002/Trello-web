@@ -13,7 +13,6 @@ import { serviceAddCard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
 import { atomData } from '../Type';
 import { useAtom } from 'jotai';
-import { SortCards } from '@/store/sortCard';
 
 interface IBoardBar {
   dataColumn: any;
