@@ -6,6 +6,8 @@ import Text from '@/components/UI/Text';
 import Container from '@/components/UI/Container/Container';
 import { Input } from 'antd';
 import ModalWorkSpace from '../ModalWorkSpace/ModalWorkSpace';
+import { NavLink } from 'react-router-dom';
+import { ROUTE_PATH } from '@/routes/route.constant';
 function Header() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const { Search } = Input;
@@ -25,7 +27,9 @@ function Header() {
         <ul className='flex gap-8 items-center'>
           <div className='flex gap-4 items-center'>
             <Icon icon='icon-grid-3' className='text-[24px] text-white' />
-            <img src='/Images/logo.gif' alt='Logo' className='h-[20px]' />
+            <NavLink to={ROUTE_PATH.HOME}>
+              <img src='/Images/logo.gif' alt='Logo' className='h-[20px]' />
+            </NavLink>
           </div>
 
           <div>

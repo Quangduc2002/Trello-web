@@ -6,6 +6,7 @@ import { Icon } from '@/components/UI/IconFont/Icon';
 import InputText from '@/components/UI/InputText';
 import Button from '@/components/UI/Button/Button';
 import {
+  closestCorners,
   defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
@@ -55,10 +56,10 @@ function BoardDetail() {
   );
   const [addContentColumn, setAddContentColumn] = useState<any>(null);
   const [acctiveDragItemId, setAcctiveDragItemId] = useState(null);
-  const [acctiveDragItemType, setAcctiveDragItemType] = useAtom(atomDragItemType);
   const [activeDragItemData, setActiveDragItemData] = useState<any>(null);
   const [oldColumnDragCard, setOldColumnDragCard] = useState<any>(null);
   const [addColumn, setAddColumn] = useState<boolean>(false);
+  const [acctiveDragItemType, setAcctiveDragItemType] = useAtom(atomDragItemType);
   const [data, setData] = useAtom(atomData);
 
   const handleCancel = () => {
@@ -164,7 +165,7 @@ function BoardDetail() {
       return;
     }
 
-    if (oldColumnDragCard?._id !== overColumn?._id) {
+    if (activeColumn?._id !== overColumn?._id) {
       moveCartBetweenColumns({
         setData,
         overColumn,
@@ -305,10 +306,12 @@ function BoardDetail() {
     <Container className='flex overflow-x-scroll h-full'>
       {!loading && data?.columns && data?.columns.length > 0 && (
         <DndContext
+          sensors={sensors}
+          // thuật toán phát hiện va trạm
+          collisionDetection={closestCorners}
           onDragEnd={handleDragEnd}
           onDragStart={handleDragStart}
           onDragOver={handleDragOver}
-          sensors={sensors}
           autoScroll={false}
         >
           <SortableContext

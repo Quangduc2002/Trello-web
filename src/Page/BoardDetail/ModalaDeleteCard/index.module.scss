@@ -1,0 +1,11 @@
+.modal {
+  :global {
+    .ant-modal-header {
+      border-bottom: none !important;
+    }
+
+    .ant-modal-body {
+      padding-top: 0 !important;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import Button from '@/components/UI/Button/Button';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import Text from '@/components/UI/Text';
 import BoardContent from '../BoardContent/BoardContent';
-import { Form, Popover } from 'antd';
+import { Form, Popover, Tooltip } from 'antd';
 import { useState } from 'react';
 import InputText from '@/components/UI/InputText';
 import ModalOptions from '../ModalOptions/ModalOptions';
@@ -110,7 +110,7 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
         <Popover
           trigger='click'
           arrow={false}
-          placement='bottomLeft'
+          placement='bottomRight'
           content={
             <ModalOptions
               data={dataColumn}
@@ -122,75 +122,77 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
           open={open}
           onOpenChange={handleOpenChange}
         >
-          <div className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'>
-            <Icon
-              icon='icon-alt-arrow-down'
-              className='text-[18px] text-[--bs-navbar-color] cursor-pointer'
-            />
-          </div>
+          <Tooltip title='Thao tác' placement='bottom'>
+            <div className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'>
+              <Icon
+                icon='icon-alt-arrow-down'
+                className='text-[18px] text-[--bs-navbar-color] cursor-pointer'
+              />
+            </div>
+          </Tooltip>
         </Popover>
       </div>
 
-      <div className='flex flex-col gap-2 overflow-y-scroll overflow-x-hidden'>
+      {/* overflow-y-scroll */}
+      <div className='flex flex-col gap-2 overflow-x-hidden'>
         {dataColumn?.cards?.length > 0 && (
           <SortableContext
             items={dataColumn?.cards?.map((item: any) => item?._id)}
             strategy={verticalListSortingStrategy}
           >
-            {/* SortCards(dataColumn) */}
             {dataColumn?.cards?.map((item: any) => (
-              <BoardContent key={item?._id} dataCard={item} addContentColumn={addContentColumn} />
+              <BoardContent key={item?._id} dataCard={item} />
             ))}
           </SortableContext>
         )}
+      </div>
 
-        <Form layout='vertical' form={form} className='form-card'>
-          {addContentColumn !== dataColumn?._id ? (
-            <div
-              onClick={() => setAddContentColumn(dataColumn?._id)}
-              className='text-[--brand-social] cursor-pointer pb-2'
+      <Form layout='vertical' form={form} className='form-card mt-2'>
+        {addContentColumn !== dataColumn?._id ? (
+          <div
+            onClick={() => setAddContentColumn(dataColumn?._id)}
+            className='text-[--brand-social] cursor-pointer pb-2'
+          >
+            <div className='flex gap-2 items-center py-2 px-4 hover:bg-[--background-modal-hover] rounded-[4px]'>
+              <Icon icon='icon-plus' className='text-[18px] !text-[--brand-social]' />
+              <Text type='body1'>Thêm thẻ</Text>
+            </div>
+          </div>
+        ) : (
+          <>
+            <Form.Item
+              name='title'
+              rules={[{ whitespace: true, required: true, message: 'Vui lòng không để trống !' }]}
             >
-              <div className='flex gap-2 items-center py-2 px-4 hover:bg-[--background-modal-hover] rounded-[4px]'>
-                <Icon icon='icon-plus' className='text-[18px] !text-[--brand-social]' />
-                <Text type='body1'>Thêm thẻ</Text>
+              <InputText placeholder='Nhập nội dung' />
+            </Form.Item>
+            <div className='flex gap-2 mt-2 items-center pb-2'>
+              <Form.Item dependencies={['title']}>
+                {({ getFieldsValue }) => {
+                  const { title } = getFieldsValue();
+                  const disabled = !title || !title.trim();
+                  return (
+                    <Button
+                      type='xhotel-primary'
+                      className='!px-[20px]'
+                      onClick={() => handleAddCard(dataColumn)}
+                      disabled={disabled}
+                    >
+                      <Text type='body2'>Thêm thẻ</Text>
+                    </Button>
+                  );
+                }}
+              </Form.Item>
+              <div
+                onClick={hanldeCancel}
+                className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
+              >
+                <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color]' />
               </div>
             </div>
-          ) : (
-            <>
-              <Form.Item
-                name='title'
-                rules={[{ whitespace: true, required: true, message: 'Vui lòng không để trống !' }]}
-              >
-                <InputText placeholder='Nhập tiêu đề' />
-              </Form.Item>
-              <div className='flex gap-2 mt-2 items-center pb-2'>
-                <Form.Item dependencies={['title']}>
-                  {({ getFieldsValue }) => {
-                    const { title } = getFieldsValue();
-                    const disabled = !title || !title.trim();
-                    return (
-                      <Button
-                        type='xhotel-primary'
-                        className='!px-[20px]'
-                        onClick={() => handleAddCard(dataColumn)}
-                        disabled={disabled}
-                      >
-                        <Text type='body2'>Thêm thẻ</Text>
-                      </Button>
-                    );
-                  }}
-                </Form.Item>
-                <div
-                  onClick={hanldeCancel}
-                  className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
-                >
-                  <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color] ' />
-                </div>
-              </div>
-            </>
-          )}
-        </Form>
-      </div>
+          </>
+        )}
+      </Form>
     </div>
   );
 }
