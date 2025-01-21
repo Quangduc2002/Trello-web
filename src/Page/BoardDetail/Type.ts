@@ -6,3 +6,13 @@ export const ACTIVE_DRAG_ITEM_TYPE = {
 export const atomDragItemType = atom<any | null>(null);
 export const atomDragItemId = atom<any | null>(null);
 export const atomData = atom<any | null>([]);
+export const atomEditCard = atom<string | null>(null);
+
+export interface IColumn {
+  boardId: string;
+  cardOrderIds: any[];
+  title: string;
+  _destroy: boolean;
+  _id: string;
+  cards: any[];
+}
