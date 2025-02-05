@@ -1,7 +1,7 @@
 import Button from '@/components/UI/Button/Button';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import Text from '@/components/UI/Text';
-import BoardContent from '../BoardContent/BoardContent';
+import ListCards from '../ListCards/ListCards';
 import { Form, Popover, Tooltip } from 'antd';
 import { useState } from 'react';
 import InputText from '@/components/UI/InputText';
@@ -20,7 +20,7 @@ interface IBoardBar {
   addContentColumn?: any;
 }
 
-function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardBar) {
+function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoardBar) {
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const [data, setData] = useAtom(atomData);
@@ -71,7 +71,7 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
     data: { ...dataColumn },
   });
 
-  const style = {
+  const styleCard = {
     transform: CSS.Transform.toString(transform),
     transition,
     cursor: 'pointer',
@@ -95,12 +95,12 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
 
   return (
     <div
-      className='overflow-auto p-[8px] mx-[8px] w-[300px] min-w-[300px] bg-[--background-header] rounded-xl max-h-full h-max min-h-[100px]'
+      className='overflow-auto customer-scroll p-[8px] mx-[8px] w-[300px] min-w-[300px] bg-[--background-header] rounded-xl max-h-full h-max min-h-[100px]'
       ref={setNodeRef}
       {...attributes}
       {...listeners}
       style={{
-        ...style,
+        ...styleCard,
       }}
     >
       <div className='flex items-center justify-between text-[--bs-navbar-color] px-4 py-2'>
@@ -132,7 +132,6 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
           </Tooltip>
         </Popover>
       </div>
-
       {/* overflow-y-scroll */}
       <div className='flex flex-col gap-2 overflow-x-hidden'>
         {dataColumn?.cards?.length > 0 && (
@@ -141,12 +140,11 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
             strategy={verticalListSortingStrategy}
           >
             {dataColumn?.cards?.map((item: any) => (
-              <BoardContent key={item?._id} dataCard={item} />
+              <ListCards key={item?._id} dataCard={item} />
             ))}
           </SortableContext>
         )}
       </div>
-
       <Form layout='vertical' form={form} className='form-card mt-2'>
         {addContentColumn !== dataColumn?._id ? (
           <div
@@ -197,4 +195,4 @@ function BoardBar({ dataColumn, setAddContentColumn, addContentColumn }: IBoardB
   );
 }
 
-export default BoardBar;
+export default ListColumns;

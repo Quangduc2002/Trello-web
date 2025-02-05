@@ -8,6 +8,8 @@ import Button from '@/components/UI/Button/Button';
 import { useRequest } from 'ahooks';
 import { serviceCreateBoard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
+import { useAtom } from 'jotai';
+import { atomProfiole } from '@/store/Profile/type';
 
 interface IModalAddBoard {
   data?: any;
@@ -17,6 +19,7 @@ interface IModalAddBoard {
 
 function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
   const [visible, setVisible] = useState(false);
+  const [profile] = useAtom(atomProfiole);
   const [form] = Form.useForm();
   const optionType = [
     {
@@ -74,6 +77,7 @@ function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
     run({
       title: values.title,
       type: values.type,
+      userId: profile?._id,
     });
   };
   return (

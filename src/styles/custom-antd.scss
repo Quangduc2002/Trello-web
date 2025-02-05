@@ -134,3 +134,22 @@
   .ant-select-selector {
   border: 1.5px solid var(--divider-default);
 }
+
+.description {
+  .ant-form-item-label {
+    label {
+      width: 100%;
+    }
+  }
+}
+
+.modal-description {
+  .ant-modal-body {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+}
+
+.ant-spin-nested-loading .ant-spin-container::after {
+  background-color: transparent !important;
+}

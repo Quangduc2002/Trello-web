@@ -16,7 +16,6 @@ export interface IInputText extends InputProps {
   addonBefore?: ReactNode;
   addonAfter?: ReactNode;
   size?: SizeType;
-  bordered?: boolean;
   defaultValue?: string;
   disabled?: boolean;
   allowClear?: boolean;
@@ -46,7 +45,6 @@ const InputText = (props: IInputText, ref: any) => {
     addonAfter,
     disabled = false,
     size,
-    bordered,
     allowClear = false,
     ...rest
   } = props;
@@ -65,7 +63,6 @@ const InputText = (props: IInputText, ref: any) => {
       addonAfter={addonAfter}
       disabled={disabled}
       size={size}
-      bordered={bordered}
       allowClear={allowClear}
       ref={ref}
       {...rest}
