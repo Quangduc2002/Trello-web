@@ -1,12 +1,11 @@
 import Container from '@/components/UI/Container/Container';
-import BoardBar from '@/Page/BoardDetail/BoardBar/BoardBar';
-import { useState } from 'react';
+import ListColumns from '@/Page/BoardDetail/ListColumns/ListColumns';
+import { useEffect, useState } from 'react';
 import Text from '@/components/UI/Text';
 import { Icon } from '@/components/UI/IconFont/Icon';
 import InputText from '@/components/UI/InputText';
 import Button from '@/components/UI/Button/Button';
 import {
-  closestCorners,
   defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
@@ -20,7 +19,7 @@ import { useAtom } from 'jotai';
 import { cloneDeep, isEmpty } from 'lodash';
 import { moveCartBetweenColumns } from '@/store/moveCart';
 import { useRequest } from 'ahooks';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ACTIVE_DRAG_ITEM_TYPE, atomData, atomDragItemType } from './Type';
 import {
   serviceAddColumn,
@@ -29,8 +28,8 @@ import {
   serviceUpdateCards,
   serviceUpdateColumns,
 } from './service';
-import BoardContent from './BoardContent/BoardContent';
-import { Form } from 'antd';
+import BoardContent from './ListCards/ListCards';
+import { Form, Spin } from 'antd';
 import { toast } from '@/components/UI/Toast/toast';
 import { placeholderCard } from '@/utils/placeholderCard';
 import { findColumnByCartId } from '@/utils/findColumnByCard';
@@ -38,7 +37,7 @@ import { SortColumns } from '@/store/sortColumn';
 import { SortCards } from '@/store/sortCard';
 import { ROUTE_PATH } from '@/routes/route.constant';
 
-type BoardParams = {
+export type BoardParams = {
   slug: string;
 };
 
@@ -77,7 +76,12 @@ function BoardDetail() {
     }),
   };
 
-  const { data: dataBoardDetail, loading } = useRequest(() => serviceBoardDetail(slug), {
+  const {
+    data: dataBoardDetail,
+    loading,
+    run: runBoardDetail,
+  } = useRequest(serviceBoardDetail, {
+    manual: true,
     onSuccess: (res) => {
       const newBoard = { ...res?.data[0] };
       // sắp sếp column
@@ -95,6 +99,12 @@ function BoardDetail() {
       setData(newBoard ?? []);
     },
   });
+
+  useEffect(() => {
+    if (slug) {
+      runBoardDetail(slug);
+    }
+  }, [slug]);
 
   const { run: runMoveColumn } = useRequest(serviceUpdateColumns, {
     manual: true,
@@ -303,101 +313,123 @@ function BoardDetail() {
   }
 
   return (
-    <Container className='flex overflow-x-scroll h-full'>
-      {!loading && data?.columns && data?.columns.length > 0 && (
-        <DndContext
-          sensors={sensors}
-          // thuật toán phát hiện va trạm
-          collisionDetection={closestCorners}
-          onDragEnd={handleDragEnd}
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          autoScroll={false}
-        >
-          <SortableContext
-            items={data?.columns?.map((item: any) => item._id)}
-            strategy={horizontalListSortingStrategy}
-          >
-            {data?.columns?.map((item: any) => (
-              <BoardBar
-                key={item?._id}
-                dataColumn={item}
-                setAddContentColumn={setAddContentColumn}
-                addContentColumn={addContentColumn}
-              />
-            ))}
-          </SortableContext>
-          <DragOverlay dropAnimation={dropAnimation}>
-            {(!acctiveDragItemId || !acctiveDragItemType) && null}
-            {acctiveDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (
-              <BoardBar dataColumn={activeDragItemData} setAddContentColumn={setAddContentColumn} />
-            )}
-
-            {activeDragItemData?._id && acctiveDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && (
-              <BoardContent dataCard={activeDragItemData} />
-            )}
-          </DragOverlay>
-        </DndContext>
-      )}
-
-      <Form layout='vertical' className='form-card' form={form}>
-        <div
-          className={`overflow-auto p-[8px] mx-[8px] w-[240px] min-w-[240px] bg-[--background-header] cursor-pointer rounded-xl max-h-full h-max ${
-            !addColumn && 'hover:bg-[--background-modal-hover]'
-          }`}
-        >
-          {!addColumn ? (
-            <div
-              onClick={() => setAddColumn(true)}
-              className='flex items-center gap-2 text-[--bs-navbar-color] px-4'
-            >
-              <div className='flex items-center justify-center rounded-[6px] '>
-                <Icon
-                  icon='icon-plus'
-                  className='text-[18px] text-[--bs-navbar-color] cursor-pointer'
-                />
-              </div>
-              <Text type='body2' className='font-bold'>
-                Thêm danh sách khác
-              </Text>
-            </div>
-          ) : (
-            <div className='flex flex-col gap-4'>
-              <Form.Item
-                name='titleColumn'
-                rules={[{ whitespace: true, required: true, message: 'Vui lòng không để trống !' }]}
+    <>
+      <Container className='h-full overflow-x-scroll customer-scroll'>
+        <Link to={ROUTE_PATH.HOME}>
+          <Text className='text-[16px] flex gap-2 items-center text-[--bs-navbar-color] hover:text-[--bs-navbar-hover-color] cursor-pointer ml-[8px] text'>
+            <Icon icon='icon-arrow-left' className='text-[--bs-navbar-color] text-[14px]' />
+            Quay lại
+          </Text>
+        </Link>
+        <Spin spinning={loading} className='mt-[50px]'>
+          <div className='flex h-full mt-4'>
+            {!loading && data?.columns && data?.columns.length > 0 && (
+              <DndContext
+                sensors={sensors}
+                // thuật toán phát hiện va trạm
+                // collisionDetection={closestCorners}
+                onDragStart={handleDragStart}
+                onDragOver={handleDragOver}
+                onDragEnd={handleDragEnd}
+                autoScroll={false}
               >
-                <InputText placeholder='Nhập tên danh sách...' />
-              </Form.Item>
-              <div className='flex gap-2 items-center pb-2'>
-                <Form.Item dependencies={['titleColumn']}>
-                  {({ getFieldsValue }) => {
-                    const { titleColumn } = getFieldsValue();
-                    const disabled = !titleColumn || !titleColumn.trim();
-                    return (
-                      <Button
-                        disabled={disabled}
-                        type='xhotel-primary'
-                        className='!px-[20px]'
-                        onClick={() => handleAddColumn()}
-                      >
-                        <Text type='body2'>Thêm danh sách</Text>
-                      </Button>
-                    );
-                  }}
-                </Form.Item>
-                <div
-                  onClick={handleCancel}
-                  className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
+                <SortableContext
+                  items={data?.columns?.map((item: any) => item._id)}
+                  strategy={horizontalListSortingStrategy}
                 >
-                  <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color] ' />
-                </div>
+                  {data?.columns?.map((item: any) => (
+                    <ListColumns
+                      key={item?._id}
+                      dataColumn={item}
+                      setAddContentColumn={setAddContentColumn}
+                      addContentColumn={addContentColumn}
+                    />
+                  ))}
+                </SortableContext>
+                <DragOverlay dropAnimation={dropAnimation}>
+                  {(!acctiveDragItemId || !acctiveDragItemType) && null}
+                  {acctiveDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (
+                    <ListColumns
+                      dataColumn={activeDragItemData}
+                      setAddContentColumn={setAddContentColumn}
+                    />
+                  )}
+
+                  {activeDragItemData?._id &&
+                    acctiveDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && (
+                      <BoardContent dataCard={activeDragItemData} />
+                    )}
+                </DragOverlay>
+              </DndContext>
+            )}
+
+            <Form layout='vertical' className='form-card' form={form}>
+              <div
+                className={`overflow-auto customer-scroll p-[8px] mx-[8px] w-[240px] min-w-[240px] bg-[--background-header] cursor-pointer rounded-xl max-h-full h-max ${
+                  !addColumn && 'hover:bg-[--background-modal-hover]'
+                }`}
+              >
+                {!addColumn ? (
+                  <div
+                    onClick={() => setAddColumn(true)}
+                    className='flex items-center gap-2 text-[--bs-navbar-color] px-4'
+                  >
+                    <div className='flex items-center justify-center rounded-[6px] '>
+                      <Icon
+                        icon='icon-plus'
+                        className='text-[18px] text-[--bs-navbar-color] cursor-pointer'
+                      />
+                    </div>
+                    <Text type='body2' className='font-bold'>
+                      Thêm danh sách khác
+                    </Text>
+                  </div>
+                ) : (
+                  <div className='flex flex-col gap-4'>
+                    <Form.Item
+                      name='titleColumn'
+                      rules={[
+                        {
+                          whitespace: true,
+                          required: true,
+                          message: 'Vui lòng không để trống !',
+                        },
+                      ]}
+                    >
+                      <InputText placeholder='Nhập tên danh sách...' />
+                    </Form.Item>
+                    <div className='flex gap-2 items-center pb-2'>
+                      <Form.Item dependencies={['titleColumn']}>
+                        {({ getFieldsValue }) => {
+                          const { titleColumn } = getFieldsValue();
+                          const disabled = !titleColumn || !titleColumn.trim();
+                          return (
+                            <Button
+                              disabled={disabled}
+                              type='xhotel-primary'
+                              className='!px-[20px]'
+                              onClick={() => handleAddColumn()}
+                            >
+                              <Text type='body2'>Thêm danh sách</Text>
+                            </Button>
+                          );
+                        }}
+                      </Form.Item>
+                      <div
+                        onClick={handleCancel}
+                        className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
+                      >
+                        <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color] ' />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          )}
-        </div>
-      </Form>
-    </Container>
+            </Form>
+          </div>
+        </Spin>
+      </Container>
+    </>
   );
 }
 

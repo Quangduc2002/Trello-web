@@ -4,7 +4,6 @@ import Text from '@/components/UI/Text';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Form, Tooltip } from 'antd';
-import { useState } from 'react';
 import InputText from '@/components/UI/InputText';
 import { atomData, atomEditCard } from '../Type';
 import { useAtom } from 'jotai';
@@ -12,15 +11,16 @@ import ModalaDeleteCard from '../ModalaDeleteCard/ModalaDeleteCard';
 import { useRequest } from 'ahooks';
 import { serviceEditCard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
+import ModalDescription from './ModalDescription/ModalDescription';
 
 interface IBoardContent {
   dataCard: any;
 }
 
-function BoardContent({ dataCard }: IBoardContent) {
+function ListCards({ dataCard }: IBoardContent) {
   const [form] = Form.useForm();
   const [editCardId, setEditCardId] = useAtom(atomEditCard);
-  const [data, setData] = useAtom(atomData);
+  const [data] = useAtom(atomData);
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: dataCard?._id,
@@ -49,17 +49,19 @@ function BoardContent({ dataCard }: IBoardContent) {
         }
       }
 
-      setEditCardId(null);
       toast.success('Sửa nội dung thành công.');
+      setEditCardId(null);
     },
     onError: () => {
       toast.error('Sửa nội dung không thành công.');
     },
   });
 
-  const handleEditCard = () => {
+  const handleEditCard = (e: any) => {
     setEditCardId(dataCard?._id);
     form.setFieldValue('title', dataCard?.title);
+    e.stopPropagation();
+    e.preventDefault();
   };
 
   const onFinish = (values: any) => {
@@ -116,39 +118,52 @@ function BoardContent({ dataCard }: IBoardContent) {
         </div>
       </Form>
 
-      <div
-        className={`flex justify-between items-center gap-2 bg-[--background-modal] px-[12px] py-[8px] rounded-xl z-10 
-          ${dataCard?.FE_PlaceholderCard ? 'hidden' : 'block'} 
+      <ModalDescription data={dataCard}>
+        <div
+          className={`bg-[--background-modal] px-[12px] py-[8px] rounded-xl z-10 
+          ${dataCard?.FE_PlaceholderCard ? 'invisible' : 'visible'} 
           ${editCardId === dataCard?._id ? 'hidden' : 'block'}
           `}
-      >
-        <Text className='text-[--bs-navbar-color] text-[16px] line-clamp-1'>{dataCard?.title}</Text>
-        <ul className='flex items-center'>
-          <Tooltip title='Sửa nội dung' placement='bottom'>
-            <li
-              onClick={handleEditCard}
-              className='flex items-center gap-2 p-3 rounded-full text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'
-            >
-              <Icon
-                className='text-[12px] min-w-[12px] text-[--bs-navbar-color]'
-                icon='icon-pen-fill'
-              ></Icon>
-            </li>
-          </Tooltip>
-          <ModalaDeleteCard data={dataCard}>
-            <Tooltip title='Xóa nội dung' placement='bottom'>
-              <li className='flex items-center gap-2 p-3 rounded-full text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
-                <Icon
-                  className='text-[12px] min-w-[12px] text-[--bs-navbar-color]'
-                  icon='icon-trash'
-                ></Icon>
-              </li>
-            </Tooltip>
-          </ModalaDeleteCard>
-        </ul>
-      </div>
+        >
+          <div className='flex justify-between items-center gap-2 '>
+            <Text className='text-[--bs-navbar-color] text-[16px] line-clamp-1'>
+              {dataCard?.title}
+            </Text>
+            <ul className='flex items-center'>
+              <Tooltip title='Sửa nội dung' placement='bottom'>
+                <li
+                  onClick={(e) => handleEditCard(e)}
+                  className='flex items-center gap-2 p-3 rounded-full text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'
+                >
+                  <Icon
+                    className='text-[12px] min-w-[12px] text-[--bs-navbar-color]'
+                    icon='icon-pen-fill'
+                  ></Icon>
+                </li>
+              </Tooltip>
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                <ModalaDeleteCard data={dataCard}>
+                  <Tooltip title='Xóa nội dung' placement='bottom'>
+                    <li className='flex items-center gap-2 p-3 rounded-full text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
+                      <Icon
+                        className='text-[12px] min-w-[12px] text-[--bs-navbar-color]'
+                        icon='icon-trash'
+                      ></Icon>
+                    </li>
+                  </Tooltip>
+                </ModalaDeleteCard>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </ModalDescription>
     </div>
   );
 }
 
-export default BoardContent;
+export default ListCards;

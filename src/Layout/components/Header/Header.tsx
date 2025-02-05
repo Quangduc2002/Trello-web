@@ -8,7 +8,12 @@ import { Input } from 'antd';
 import ModalWorkSpace from '../ModalWorkSpace/ModalWorkSpace';
 import { NavLink } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
-function Header() {
+import ModalProfile from '../ModalProfile/ModalProfile';
+import ModalAddBoard from '../Sidebar/ModalAddBoard/ModalAddBoard';
+interface IHeader {
+  onRefresh: () => void;
+}
+function Header({ onRefresh }: IHeader) {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const { Search } = Input;
 
@@ -44,7 +49,7 @@ function Header() {
               <div>
                 <Text
                   type='body1'
-                  className='text-[--bs-navbar-color] flex items-center gap-2 hover:text-[--bs-navbar-hover-color] cursor-pointer'
+                  className='text-[--bs-navbar-color] text flex items-center gap-2 hover:text-[--bs-navbar-hover-color] cursor-pointer'
                 >
                   WorkSpace
                   <Icon
@@ -56,23 +61,15 @@ function Header() {
             </Popover>
           </div>
 
-          {/* <Popover trigger='click' arrow={false} placement='bottomLeft'>
+          <ModalAddBoard onRefresh={onRefresh}>
             <Text
               type='body1'
-              className='text-[--bs-navbar-color] flex items-center gap-2 hover:text-[--bs-navbar-hover-color] cursor-pointer'
+              className='flex items-center gap-2 text-[--bs-navbar-color] hover:text-[--bs-navbar-hover-color] text cursor-pointer'
             >
-              Templates
-              <Icon icon='icon-alt-arrow-down' className='text-[20px]' />
+              <Icon icon='icon-square-plus' className='text-[18px] text-[--bs-navbar-color]' />
+              Create
             </Text>
-          </Popover> */}
-
-          <Text
-            type='body1'
-            className='flex items-center gap-2 text-[--bs-navbar-color] hover:text-[--bs-navbar-hover-color] cursor-pointer'
-          >
-            <Icon icon='icon-square-plus' className='text-[18px] text-[--bs-navbar-color]' />
-            Create
-          </Text>
+          </ModalAddBoard>
         </ul>
         <ul className='flex gap-4 items-center hidden-header'>
           <Search
@@ -85,6 +82,22 @@ function Header() {
             icon={`${theme === 'light' ? 'icon-icon-light' : 'icon-icon-dark'}`}
             className='text-2xl text-[--bs-navbar-color] cursor-pointer'
           />
+          <Popover
+            trigger='click'
+            arrow={false}
+            placement='bottomLeft'
+            content={<ModalProfile />}
+            // className='flex max-w-[344px] sm:w-auto items-center gap-[12px] cursor-pointer'
+            rootClassName='workspace'
+          >
+            <div>
+              <img
+                src='/Images/avt-default.jpg'
+                alt='logo'
+                className='w-[32px] rounded-full cursor-pointer'
+              />
+            </div>
+          </Popover>
         </ul>
       </Container>
     </div>

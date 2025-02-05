@@ -1,17 +1,35 @@
 import { Icon } from '@/components/UI/IconFont/Icon';
 import Text from '@/components/UI/Text';
 import { useRequest } from 'ahooks';
-import { serviceBoardAll } from './service';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { serviceBoardAll, serviceDeleteBoard } from './service';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
 import { useAtom } from 'jotai';
 import { atomBoardId } from './type';
 import ModalAddBoard from './ModalAddBoard/ModalAddBoard';
+import { atomProfiole } from '@/store/Profile/type';
+import { Row } from 'antd';
+import { BoardParams } from '@/Page/BoardDetail/BoardDetail';
+import { toast } from '@/components/UI/Toast/toast';
+import ModalDeleteBoard from './ModalDeleteBoard/ModalDeleteBoard';
 
-function Sidebar() {
-  const { data, refresh } = useRequest(serviceBoardAll);
+interface ISidebar {
+  data: any;
+  onRefresh: () => void;
+}
+
+function Sidebar({ data, onRefresh }: ISidebar) {
+  const { slug } = useParams<BoardParams>();
+  const [profile] = useAtom(atomProfiole);
   const [, setBoardId] = useAtom(atomBoardId);
   const navigate = useNavigate();
+
+  const { run } = useRequest(serviceDeleteBoard, {
+    manual: true,
+    onSuccess: () => {
+      toast.success('Xóa');
+    },
+  });
 
   const handleNavigate = (item: any) => {
     setBoardId(item?._id);
@@ -23,7 +41,7 @@ function Sidebar() {
       <div className='flex items-center gap-4 p-[12px] border-b border-[--background-header]'>
         <img src='/Images/avt-default.jpg' alt='logo' className='w-[32px] rounded-[8px]' />
         <Text type='body1' className='text-[--bs-navbar-color]'>
-          Phạm Quang Đức
+          {profile?.name}
         </Text>
       </div>
       <div className='py-[12px]'>
@@ -31,7 +49,7 @@ function Sidebar() {
           <Text type='body1' className='text-[--bs-navbar-color] font-bold'>
             Các bảng của bạn
           </Text>
-          <ModalAddBoard onRefresh={refresh}>
+          <ModalAddBoard onRefresh={onRefresh}>
             <div className='flex items-center justify-center hover:bg-[--background-modal-hover] p-[4px] rounded-[6px] cursor-pointer'>
               <Icon icon='icon-plus' className='text-[18px] text-[--bs-navbar-color] ' />
             </div>
@@ -41,15 +59,34 @@ function Sidebar() {
         <div className='sidebar mt-2'>
           {data?.data?.map((item: any) => {
             return (
-              <NavLink
-                to={ROUTE_PATH.BOARD_DETAIL(item?.slug)}
-                onClick={() => handleNavigate(item)}
+              <Row
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  handleNavigate(item);
+                }}
                 key={item?._id}
-                type='body2'
-                className='flex items-center text-[--bs-navbar-color] px-[16px] hover:bg-[--background-modal-hover] h-[32px] cursor-pointer'
+                className={`flex items-center ellipsis justify-between text-[--bs-navbar-color] px-[16px] hover:bg-[--background-modal-hover] h-[32px] cursor-pointer 
+                  ${slug === item?.slug && 'active'}
+                  `}
               >
-                {item?.title}
-              </NavLink>
+                <Text>{item?.title}</Text>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                >
+                  <ModalDeleteBoard onRefresh={onRefresh} data={item}>
+                    <div className='flex items-center justify-center hover:bg-[--background-modal-hover] p-[4px] rounded-[6px] cursor-pointer'>
+                      <Icon
+                        icon='icon-trash'
+                        className='text-[14px] text-[--bs-navbar-color] hidden'
+                      />
+                    </div>
+                  </ModalDeleteBoard>
+                </div>
+              </Row>
             );
           })}
         </div>

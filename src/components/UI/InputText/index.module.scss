@@ -72,20 +72,6 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
-
-    &::-webkit-input-placeholder {
-      /* Edge */
-      color: var(--background-disabled);
-    }
-
-    &:-ms-input-placeholder {
-      /* Internet Explorer 10-11 */
-      color: var(--background-disabled);
-    }
-
-    &::placeholder {
-      color: var(--background-disabled);
-    }
   }
 
   :global {

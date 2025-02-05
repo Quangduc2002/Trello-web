@@ -1,48 +1,7 @@
-// /* eslint-disable no-unused-vars */
-// import axios from 'axios';
-// const instance = axios.create({
-//   baseURL: 'http://localhost:8080',
-// });
-
-// // instance.defaults.headers.common['Authorization'] = `bearer ${localStorage.accessToken}`;
-// instance.interceptors.request.use(
-//   function (config) {
-//     config.headers.Authorization = `bearer ${localStorage.accessToken}`;
-//     return config;
-//   },
-//   function (error) {
-//     return Promise.reject(error);
-//   },
-// );
-
-// instance.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const originalRequest = error.config;
-
-//     if (error.response && error.response.status === 403) {
-//       const refreshToken = localStorage.getItem('refreshToken');
-//       try {
-//         const { data } = await instance.post('/auth/refresh-token', { refreshToken });
-//         localStorage.setItem('accessToken', data.accessToken);
-//         localStorage.setItem('refreshToken', data.refreshToken);
-//         instance.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
-
-//         return instance(originalRequest);
-//       } catch (refreshError) {
-//         return Promise.reject(refreshError);
-//       }
-//     }
-
-//     return Promise.reject(error);
-//   },
-// );
-
-// export default instance;
-
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-export const VITE_APP_API = 'http://localhost:8080';
+// export const VITE_APP_API = 'http://localhost:8080';
+export const VITE_APP_API = 'https://trello-api-jk9a.onrender.com';
 
 export const axiosInstant = axios.create({
   baseURL: VITE_APP_API,
@@ -70,8 +29,41 @@ const successHandler = async (response: AxiosResponse) => {
   return response;
 };
 
-const errorHandler = (error: AxiosError) => {
+const errorHandler = async (error: AxiosError) => {
   const resError: AxiosResponse<any> | undefined = error.response;
+  const originalRequest = resError?.config;
+
+  if (resError && resError.status === 401 && originalRequest) {
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      window.location.href = '/login';
+      return Promise.reject({ message: 'Refresh token not found' });
+    }
+
+    try {
+      const { data } = await axiosInstant.post('/auth/refresh-token', { refreshToken });
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      axiosInstant.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
+
+      if (originalRequest.data && typeof originalRequest.data === 'string') {
+        try {
+          originalRequest.data = JSON.parse(originalRequest.data);
+        } catch (error) {
+          console.warn('JSON parse error:', error);
+        }
+      }
+      return axiosInstant(originalRequest);
+    } catch (error: any) {
+      if (error?.response?.status === 401) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        window.location.href = '/login';
+      }
+    }
+  }
 
   return Promise.reject({ ...resError?.data });
 };
