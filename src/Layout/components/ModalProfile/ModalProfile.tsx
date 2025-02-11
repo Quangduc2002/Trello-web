@@ -2,7 +2,7 @@ import { Icon } from '@/components/UI/IconFont/Icon';
 import Text from '@/components/UI/Text';
 import { toast } from '@/components/UI/Toast/toast';
 import { useRequest } from 'ahooks';
-import { serviceLogout } from '../Header/service';
+import { serviceLogout } from '../service';
 import { useNavigate } from 'react-router-dom';
 
 function ModalProfile() {
@@ -16,7 +16,7 @@ function ModalProfile() {
       navigate('/login');
     },
     onError: () => {
-      toast.success('Đăng xuất không thành công.');
+      toast.error('Đăng xuất không thành công.');
     },
   });
   return (

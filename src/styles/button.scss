@@ -57,7 +57,7 @@
   }
 }
 
-.xhotel-primary {
+.trello-primary {
   background-color: var(--primary-main);
   border: 1px solid var(--primary-main);
   color: var(--neutral-50);
@@ -95,7 +95,7 @@
   }
 }
 
-.xhotel-secondary {
+.trello-secondary {
   background-color: var(--background-default);
   border: 1px solid var(--primary-main);
   color: var(--primary-main);
@@ -136,9 +136,9 @@
   }
 }
 
-.xhotel-negative-primary,
-.xhome-negative-primary,
-.xhome-purple-negative-primary {
+.trello-negative-primary,
+.trello-home-negative-primary,
+.trello-home-purple-negative-primary {
   background-color: var(--error-main);
   border: 1px solid var(--error-main);
   color: var(--text-inverse);
@@ -179,9 +179,9 @@
   }
 }
 
-.xhotel-negative-secondary,
-.xhome-negative-secondary,
-.xhome-purple-negative-secondary {
+.trello-negative-secondary,
+.trello-home-negative-secondary,
+.trello-home-purple-negative-secondary {
   background-color: var(--background-default);
   border: 1px solid var(--error-main);
   color: var(--error-main);
@@ -222,7 +222,7 @@
   }
 }
 
-.xhome-primary {
+.trello-home-primary {
   background-color: var(--x-home-main);
   border: 1px solid var(--x-home-main);
   color: var(--neutral-50);
@@ -263,7 +263,7 @@
   }
 }
 
-.xhome-secondary {
+.trello-home-secondary {
   background-color: var(--background-default);
   border: 1px solid var(--x-home-main);
   color: var(--x-home-main);
@@ -304,7 +304,7 @@
   }
 }
 
-.xhome-purple-primary {
+.trello-home-purple-primary {
   background-color: var(--x-cell-main);
   border: 1px solid var(--x-cell-main);
   color: var(--text-inverse);
@@ -345,7 +345,7 @@
   }
 }
 
-.xhome-purple-secondary {
+.trello-home-purple-secondary {
   background-color: var(--x-cell-50);
   border: 1px solid var(--x-cell-main);
   color: var(--x-cell-main);
@@ -387,7 +387,7 @@
   }
 }
 
-.xhotel-link {
+.trello-link {
   background-color: transparent;
   overflow: none;
   border: none;
@@ -415,15 +415,15 @@
   }
 }
 
-.xhome-link {
+.trello-home-link {
   background-color: transparent;
   overflow: none;
   border: none;
   text-decoration: underline;
-  color: var(--xhome-main);
+  color: var(--trello-home-main);
 
   &:hover {
-    color: var(--xhome-400);
+    color: var(--trello-home-400);
 
     i {
     }
@@ -431,7 +431,7 @@
 
   &:focus,
   &:focus-visible {
-    color: var(--xhome-400) !important;
+    color: var(--trello-home-400) !important;
   }
 
   &.btnDisabled {
@@ -442,7 +442,7 @@
   }
 }
 
-.xhome-purple-link {
+.trello-home-purple-link {
   background-color: transparent;
   overflow: none;
   border: none;

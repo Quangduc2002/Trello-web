@@ -38,3 +38,8 @@ export const serviceDeleteCard = (id: string, config: { data: { columnId: string
 export const serviceEditCard = (id: string, data: any) => {
   return axiosInstant.put(`/card/${id}/edit`, data);
 };
+
+// api Invited
+export const serviceInvationMember = (id: string, data: any) => {
+  return axiosInstant.post(`/invitation/${id}`, data);
+};

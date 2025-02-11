@@ -108,7 +108,7 @@ function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
 
           <Row wrap={false} align={'middle'} justify={'end'} className='mt-[48px] gap-[16px]'>
             <Button
-              type='xhotel-secondary'
+              type='trello-secondary'
               className='w-[96px] h-[36px] !p-0'
               onClick={() => onCancel()}
             >
@@ -116,7 +116,7 @@ function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
             </Button>
             <Button
               htmlType='submit'
-              type='xhotel-primary'
+              type='trello-primary'
               className='w-[96px] h-[36px] !p-0'
               // disabled={loading}
               // loading={loading}

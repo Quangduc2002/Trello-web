@@ -85,12 +85,12 @@ function FormRegister({ handleToggle }: IFormRegister) {
           </Row>
 
           <div className='flex justify-end gap-2 mt-2'>
-            <Button htmlType='submit' type='xhotel-primary'>
+            <Button htmlType='submit' type='trello-primary'>
               ĐĂNG KÍ
             </Button>
 
             <Link to={ROUTE_PATH.HOME}>
-              <Button type='xhotel-secondary'>TRỞ LẠI</Button>
+              <Button type='trello-secondary'>TRỞ LẠI</Button>
             </Link>
           </div>
         </Form>

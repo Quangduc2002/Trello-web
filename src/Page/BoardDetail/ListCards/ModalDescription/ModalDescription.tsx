@@ -21,6 +21,7 @@ function ModalDescription({ children, data }: IProps) {
   const { run, loading } = useRequest(serviceEditCard, {
     manual: true,
     onSuccess: () => {
+      setVisible(false);
       toast.success('Cập nhật mô tả thành công.');
     },
     onError: () => {
@@ -51,7 +52,7 @@ function ModalDescription({ children, data }: IProps) {
         <Row align={'middle'} className='w-full' justify={'space-between'}>
           <Text className='font-bold text-[18px]'>Mô tả</Text>
           {!showEdit && data?.description && (
-            <Button type='xhotel-primary' onClick={handleEditDescription}>
+            <Button type='trello-primary' onClick={handleEditDescription}>
               Chỉnh sửa
             </Button>
           )}
@@ -62,24 +63,38 @@ function ModalDescription({ children, data }: IProps) {
               {<FormEditor />}
             </Form.Item>
 
-            <Row wrap={false} align={'middle'} justify={'end'} className='mt-[24px] gap-[16px]'>
-              <Button
-                type='xhotel-secondary'
-                className='w-[96px] h-[36px] !p-0'
-                onClick={() => setShowEdit(false)}
-              >
-                <Text type='title1-semi-bold'>Huỷ</Text>
-              </Button>
-              <Button
-                htmlType='submit'
-                type='xhotel-primary'
-                className='w-[96px] h-[32px] !p-0'
-                disabled={loading}
-                loading={loading}
-              >
-                <Text type='title1-semi-bold'>Lưu</Text>
-              </Button>
-            </Row>
+            <Form.Item noStyle dependencies={['description']}>
+              {({ getFieldsValue }) => {
+                const { description } = getFieldsValue();
+                const disabled = !description || !description.trim();
+
+                return (
+                  <Row
+                    wrap={false}
+                    align={'middle'}
+                    justify={'end'}
+                    className='mt-[24px] gap-[16px]'
+                  >
+                    <Button
+                      type='trello-secondary'
+                      className='w-[96px] h-[36px] !p-0'
+                      onClick={() => setShowEdit(false)}
+                    >
+                      <Text type='title1-semi-bold'>Huỷ</Text>
+                    </Button>
+                    <Button
+                      htmlType='submit'
+                      type='trello-primary'
+                      className='w-[96px] h-[32px] !p-0'
+                      disabled={loading || disabled}
+                      loading={loading}
+                    >
+                      <Text type='title1-semi-bold'>Lưu</Text>
+                    </Button>
+                  </Row>
+                );
+              }}
+            </Form.Item>
           </Form>
         ) : data?.description ? (
           <div

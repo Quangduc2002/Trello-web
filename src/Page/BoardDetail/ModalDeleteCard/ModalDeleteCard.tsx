@@ -14,7 +14,7 @@ interface Iprops {
   children: React.ReactNode;
   data: any;
 }
-function ModalaDeleteCard({ children, data }: Iprops) {
+function ModalDeleteCard({ children, data }: Iprops) {
   const [visible, setVisible] = useState(false);
   const [dataBoards, setDataBoards] = useAtom(atomData);
 
@@ -58,14 +58,14 @@ function ModalaDeleteCard({ children, data }: Iprops) {
         </Text>
         <Row wrap={false} align={'middle'} justify={'end'} className='mt-[24px] gap-[16px]'>
           <Button
-            type='xhotel-negative-secondary'
+            type='trello-negative-secondary'
             className='w-[96px] h-[36px] !p-0'
             onClick={() => setVisible(false)}
           >
             <Text type='title1-semi-bold'>Huỷ</Text>
           </Button>
           <Button
-            type='xhotel-negative-primary'
+            type='trello-negative-primary'
             className='w-[96px] h-[32px] !p-0'
             // disabled={loading}
             // loading={loading}
@@ -79,4 +79,4 @@ function ModalaDeleteCard({ children, data }: Iprops) {
   );
 }
 
-export default ModalaDeleteCard;
+export default ModalDeleteCard;
