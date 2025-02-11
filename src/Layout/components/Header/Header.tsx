@@ -10,10 +10,14 @@ import { NavLink } from 'react-router-dom';
 import { ROUTE_PATH } from '@/routes/route.constant';
 import ModalProfile from '../ModalProfile/ModalProfile';
 import ModalAddBoard from '../Sidebar/ModalAddBoard/ModalAddBoard';
+import ModalNotification from '../ModalNotification/ModalNotification';
+import { serviceNotification } from '../service';
+import { useRequest } from 'ahooks';
 interface IHeader {
   onRefresh: () => void;
 }
 function Header({ onRefresh }: IHeader) {
+  const { data, refresh, loading } = useRequest(serviceNotification);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const { Search } = Input;
 
@@ -32,8 +36,17 @@ function Header({ onRefresh }: IHeader) {
         <ul className='flex gap-8 items-center'>
           <div className='flex gap-4 items-center'>
             <Icon icon='icon-grid-3' className='text-[24px] text-white' />
-            <NavLink to={ROUTE_PATH.HOME}>
-              <img src='/Images/logo.gif' alt='Logo' className='h-[20px]' />
+            <img src='/Images/logo.gif' alt='Logo' className='h-[20px]' />
+          </div>
+
+          <div className='flex gap-4 items-center sidebar'>
+            <NavLink to={ROUTE_PATH.HOME} className='rounded-md'>
+              <Text
+                type='body1'
+                className='text-[--bs-navbar-color] text flex items-center hover:text-[--bs-navbar-hover-color] cursor-pointer h-[32px] px-4'
+              >
+                Trang chủ
+              </Text>
             </NavLink>
           </div>
 
@@ -72,11 +85,11 @@ function Header({ onRefresh }: IHeader) {
           </ModalAddBoard>
         </ul>
         <ul className='flex gap-4 items-center hidden-header'>
-          <Search
+          {/* <Search
             placeholder='Tìm kiếm'
             allowClear
             className='w-[220px] bg-[#d3cfd3] rounded-[6px] input-search'
-          />
+          /> */}
           <Icon
             onClick={toggleTheme}
             icon={`${theme === 'light' ? 'icon-icon-light' : 'icon-icon-dark'}`}
@@ -85,9 +98,33 @@ function Header({ onRefresh }: IHeader) {
           <Popover
             trigger='click'
             arrow={false}
+            placement='bottomRight'
+            content={
+              <ModalNotification
+                data={data}
+                refresh={refresh}
+                loading={loading}
+                onRefresh={onRefresh}
+              />
+            }
+            rootClassName='notification fixed max-h-[452px] !bottom-[16px] rounded-[16px] overflow-y-auto'
+          >
+            <div className='relative'>
+              <Icon icon='icon-bell' className='text-2xl text-[--bs-navbar-color] cursor-pointer' />
+              <Text
+                type='caption1-semi-bold'
+                className='absolute top-[-8px] right-[-8px] text-white bg-red-500 px-[6px] rounded-full'
+              >
+                {data && data?.data?.length > 0 ? data?.data?.length : 0}
+              </Text>
+            </div>
+          </Popover>
+
+          <Popover
+            trigger='click'
+            arrow={false}
             placement='bottomLeft'
             content={<ModalProfile />}
-            // className='flex max-w-[344px] sm:w-auto items-center gap-[12px] cursor-pointer'
             rootClassName='workspace'
           >
             <div>

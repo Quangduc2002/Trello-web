@@ -6,21 +6,21 @@ import Loading from '@/components/UI/Loading';
 
 export interface ButtonProps {
   type?:
-    | 'xhotel-primary'
-    | 'xhotel-secondary'
-    | 'xhotel-negative-primary'
-    | 'xhotel-negative-secondary'
-    | 'xhotel-link'
-    | 'xhome-primary'
-    | 'xhome-link'
-    | 'xhome-secondary'
-    | 'xhome-negative-primary'
-    | 'xhome-negative-secondary'
-    | 'xhome-purple-primary'
-    | 'xhome-purple-link'
-    | 'xhome-purple-secondary'
-    | 'xhome-purple-negative-primary'
-    | 'xhome-purple-negative-secondary';
+    | 'trello-primary'
+    | 'trello-secondary'
+    | 'trello-negative-primary'
+    | 'trello-negative-secondary'
+    | 'trello-link'
+    | 'trello-home-primary'
+    | 'trello-home-link'
+    | 'trello-home-secondary'
+    | 'trello-home-negative-primary'
+    | 'trello-home-negative-secondary'
+    | 'trello-home-purple-primary'
+    | 'trello-home-purple-link'
+    | 'trello-home-purple-secondary'
+    | 'trello-home-purple-negative-primary'
+    | 'trello-home-purple-negative-secondary';
 
   size?: 'large' | 'medium';
   isFullWidth?: boolean;
@@ -36,7 +36,7 @@ export interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  type = 'xhotel-primary',
+  type = 'trello-primary',
   size = 'medium',
   children,
   className,

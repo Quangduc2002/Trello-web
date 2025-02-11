@@ -1,7 +1,12 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-// export const VITE_APP_API = 'http://localhost:8080';
-export const VITE_APP_API = 'https://trello-api-jk9a.onrender.com';
+export var VITE_APP_API = '';
+
+if (process.env.BUILD_MODE === 'dev') {
+  VITE_APP_API = 'http://localhost:8080';
+} else {
+  VITE_APP_API = 'https://trello-api-jk9a.onrender.com';
+}
 
 export const axiosInstant = axios.create({
   baseURL: VITE_APP_API,

@@ -7,7 +7,7 @@ import { Form, Tooltip } from 'antd';
 import InputText from '@/components/UI/InputText';
 import { atomData, atomEditCard } from '../Type';
 import { useAtom } from 'jotai';
-import ModalaDeleteCard from '../ModalaDeleteCard/ModalaDeleteCard';
+import ModalaDeleteCard from '../ModalDeleteCard/ModalDeleteCard';
 import { useRequest } from 'ahooks';
 import { serviceEditCard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
@@ -100,7 +100,7 @@ function ListCards({ dataCard }: IBoardContent) {
               return (
                 <Button
                   htmlType='submit'
-                  type='xhotel-primary'
+                  type='trello-primary'
                   className='!px-[20px]'
                   disabled={disabled}
                 >

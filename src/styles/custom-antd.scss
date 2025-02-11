@@ -31,6 +31,21 @@
   }
 }
 
+.notification {
+  // background-color: var(--background-modal);
+  overflow: hidden;
+  .ant-popover-content {
+    // overflow-y: scroll;
+    height: 100%;
+    border-radius: 16px;
+
+    .ant-popover-inner {
+      padding: 0px !important;
+      background-color: var(--background-modal);
+    }
+  }
+}
+
 .form-card {
   .ant-form-item {
     margin-bottom: 0;
@@ -152,4 +167,14 @@
 
 .ant-spin-nested-loading .ant-spin-container::after {
   background-color: transparent !important;
+}
+
+.board-detail {
+  .ant-spin-nested-loading {
+    height: 100%;
+
+    .ant-spin-container {
+      height: 100%;
+    }
+  }
 }

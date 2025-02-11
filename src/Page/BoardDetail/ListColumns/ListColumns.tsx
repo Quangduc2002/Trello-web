@@ -95,7 +95,7 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoa
 
   return (
     <div
-      className='overflow-auto customer-scroll p-[8px] mx-[8px] w-[300px] min-w-[300px] bg-[--background-header] rounded-xl max-h-full h-max min-h-[100px]'
+      className='overflow-auto p-[8px] mx-[8px] w-[300px] min-w-[300px] bg-[--background-header] rounded-xl max-h-full h-max min-h-[100px]'
       ref={setNodeRef}
       {...attributes}
       {...listeners}
@@ -171,7 +171,7 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoa
                   const disabled = !title || !title.trim();
                   return (
                     <Button
-                      type='xhotel-primary'
+                      type='trello-primary'
                       className='!px-[20px]'
                       onClick={() => handleAddCard(dataColumn)}
                       disabled={disabled}
