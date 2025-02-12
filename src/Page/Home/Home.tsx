@@ -26,6 +26,7 @@ function Home() {
                 {item?.title}
               </Text>
               <Tooltip
+                placement='bottom'
                 title={
                   item?.type === 'public'
                     ? 'Bất kỳ ai trên mạng internet đều có thể xem bảng này. Chỉ các thành vieecn bảng mới có quyền sửa.'

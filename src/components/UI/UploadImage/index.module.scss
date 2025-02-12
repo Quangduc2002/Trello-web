@@ -1,0 +1,16 @@
+.wrapListImage {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c4c4c4;
+    border-radius: 4px;
+  }
+}

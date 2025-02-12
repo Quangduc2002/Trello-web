@@ -4,6 +4,7 @@ import { toast } from '@/components/UI/Toast/toast';
 import { useRequest } from 'ahooks';
 import { serviceLogout } from '../service';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '@/routes/route.constant';
 
 function ModalProfile() {
   const navigate = useNavigate();
@@ -22,14 +23,14 @@ function ModalProfile() {
   return (
     <div>
       <ul className='border-b border-[--bs-navbar-color] pb-[8px]'>
-        <li className='flex items-center gap-2 py-2 px-4 text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
+        <li
+          onClick={() => navigate(ROUTE_PATH.ACCOUNT)}
+          className='flex items-center gap-2 py-2 px-4 text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'
+        >
           <Text type='body1'>Quản lý tài khoản</Text>
         </li>
         <li className='flex items-center gap-2 py-2 px-4 text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
           <Text type='body1'>Trợ giúp</Text>
-        </li>
-        <li className='flex items-center gap-2 py-2 px-4 text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
-          <Text type='body1'>Cài đặt</Text>
         </li>
       </ul>
       <ul className='pt-[8px]'>

@@ -30,7 +30,7 @@ function Sidebar({ onRefresh }: ISidebar) {
   return (
     <div className='w-[260px] min-w-[260px] border-r border-[--background-header]'>
       <div className='flex items-center gap-4 p-[12px] border-b border-[--background-header] h-[60px]'>
-        <img src='/Images/avt-default.jpg' alt='logo' className='w-[32px] rounded-[8px]' />
+        <img src={profile?.avatar || ''} alt='logo' className='w-[32px] rounded-[8px]' />
         <Text type='body1' className='text-[--bs-navbar-color]'>
           {profile?.name}
         </Text>

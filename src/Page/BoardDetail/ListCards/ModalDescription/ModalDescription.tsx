@@ -21,13 +21,18 @@ function ModalDescription({ children, data }: IProps) {
   const { run, loading } = useRequest(serviceEditCard, {
     manual: true,
     onSuccess: () => {
-      setVisible(false);
+      onCancel();
       toast.success('Cập nhật mô tả thành công.');
     },
     onError: () => {
       toast.error('Cập nhật mô tả không thành công.');
     },
   });
+
+  const onCancel = () => {
+    setVisible(false);
+    setShowEdit(false);
+  };
 
   const onFinish = (values: any) => {
     if (data) {
@@ -46,7 +51,7 @@ function ModalDescription({ children, data }: IProps) {
       <ModalCustom
         className='!max-w-[800px] modal-description'
         open={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={onCancel}
         title={data?.title}
       >
         <Row align={'middle'} className='w-full' justify={'space-between'}>
