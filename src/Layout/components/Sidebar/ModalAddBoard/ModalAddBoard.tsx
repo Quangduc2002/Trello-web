@@ -61,7 +61,7 @@ function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
     form.resetFields();
   };
 
-  const { run } = useRequest(serviceCreateBoard, {
+  const { run, loading } = useRequest(serviceCreateBoard, {
     manual: true,
     onSuccess: () => {
       setVisible(false);
@@ -70,14 +70,14 @@ function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
       toast.success('Tạo bảng thông tin thành công');
     },
     onError: () => {
-      toast.success('Tạo bảng thông tin không thành công');
+      toast.error('Tạo bảng thông tin không thành công');
     },
   });
   const onFinish = (values: any) => {
     run({
       title: values.title,
       type: values.type,
-      userId: profile?._id,
+      creator: profile?._id,
     });
   };
   return (
@@ -118,8 +118,8 @@ function ModalAddBoard({ children, onRefresh }: IModalAddBoard) {
               htmlType='submit'
               type='trello-primary'
               className='w-[96px] h-[36px] !p-0'
-              // disabled={loading}
-              // loading={loading}
+              disabled={loading}
+              loading={loading}
               // onClick={onDelete}
             >
               <Text type='title1-semi-bold'>Xác nhận</Text>

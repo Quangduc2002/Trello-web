@@ -13,10 +13,13 @@ import ModalAddBoard from '../Sidebar/ModalAddBoard/ModalAddBoard';
 import ModalNotification from '../ModalNotification/ModalNotification';
 import { serviceNotification } from '../service';
 import { useRequest } from 'ahooks';
+import { atomProfiole } from '@/store/Profile/type';
+import { useAtom } from 'jotai';
 interface IHeader {
-  onRefresh: () => void;
+  onRefresh?: () => void;
 }
 function Header({ onRefresh }: IHeader) {
+  const [profile] = useAtom(atomProfiole);
   const { data, refresh, loading } = useRequest(serviceNotification);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const { Search } = Input;
@@ -32,7 +35,7 @@ function Header({ onRefresh }: IHeader) {
 
   return (
     <div className='relative z-10 h-[60px] bg-[--background-header]'>
-      <Container className='flex justify-between h-full items-center'>
+      <Container className='flex justify-between h-full items-center py-0'>
         <ul className='flex gap-8 items-center'>
           <div className='flex gap-4 items-center'>
             <Icon icon='icon-grid-3' className='text-[24px] text-white' />
@@ -90,11 +93,7 @@ function Header({ onRefresh }: IHeader) {
             allowClear
             className='w-[220px] bg-[#d3cfd3] rounded-[6px] input-search'
           /> */}
-          <Icon
-            onClick={toggleTheme}
-            icon={`${theme === 'light' ? 'icon-icon-light' : 'icon-icon-dark'}`}
-            className='text-2xl text-[--bs-navbar-color] cursor-pointer'
-          />
+
           <Popover
             trigger='click'
             arrow={false}
@@ -120,6 +119,12 @@ function Header({ onRefresh }: IHeader) {
             </div>
           </Popover>
 
+          <Icon
+            onClick={toggleTheme}
+            icon={`${theme === 'light' ? 'icon-icon-light' : 'icon-icon-dark'}`}
+            className='text-2xl text-[--bs-navbar-color] cursor-pointer'
+          />
+
           <Popover
             trigger='click'
             arrow={false}
@@ -129,9 +134,9 @@ function Header({ onRefresh }: IHeader) {
           >
             <div>
               <img
-                src='/Images/avt-default.jpg'
+                src={profile?.avatar}
                 alt='logo'
-                className='w-[32px] rounded-full cursor-pointer'
+                className='w-[32px] h-[32px] rounded-full cursor-pointer'
               />
             </div>
           </Popover>

@@ -9,14 +9,30 @@ import { serviceAcceptNotification, serviceDeleteNotification } from '../service
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/vi';
 
-dayjs.locale('vi');
+dayjs.locale('vi', {
+  relativeTime: {
+    future: 'trong %s',
+    past: '%s trước',
+    s: 'vài giây',
+    m: '1 phút',
+    mm: '%d phút',
+    h: '1 giờ',
+    hh: '%d giờ',
+    d: '1 ngày',
+    dd: '%d ngày',
+    M: '1 tháng',
+    MM: '%d tháng',
+    y: '1 năm',
+    yy: '%d năm',
+  },
+});
 // Kích hoạt plugin
 dayjs.extend(relativeTime);
 interface IProps {
   data: any;
   loading: boolean;
   refresh: () => void;
-  onRefresh: () => void;
+  onRefresh?: () => void;
 }
 
 function ModalNotification({ data, refresh, loading, onRefresh }: IProps) {
@@ -27,8 +43,8 @@ function ModalNotification({ data, refresh, loading, onRefresh }: IProps) {
       refresh();
       onRefresh && onRefresh();
     },
-    onError: () => {
-      toast.error('Bạn xác nhận tham gia không thành công.');
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -80,7 +96,7 @@ function ModalNotification({ data, refresh, loading, onRefresh }: IProps) {
                       này không ?
                     </div>
 
-                    <Text type='body2' className='text-[--bs-navbar-color]'>
+                    <Text type='body2' className='text-[#b1b1b1]'>
                       {formattedDate}
                     </Text>
 
@@ -96,7 +112,7 @@ function ModalNotification({ data, refresh, loading, onRefresh }: IProps) {
                       <Button
                         type='trello-negative-primary'
                         className='w-[96px] h-[34px] !p-0'
-                        loading={requestAcceptNotification?.loading}
+                        loading={requestDeleteNotification?.loading}
                         onClick={() => handleDelete(item)}
                       >
                         <Text type='title1-semi-bold'>Từ chối</Text>

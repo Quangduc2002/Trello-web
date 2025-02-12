@@ -15,6 +15,7 @@ import { Icon } from '@/components/UI/IconFont/Icon';
 import InputText from '@/components/UI/InputText';
 import Button from '@/components/UI/Button/Button';
 import {
+  closestCorners,
   defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
@@ -39,6 +40,7 @@ import BoardContent from './ListCards/ListCards';
 import ModalInvitation from './ModalInvitation/ModalInvitation';
 import ModalMembers from './ModalMembers/ModalMembers';
 import Seo from '@/components/UI/Seo/Seo';
+import { SortMembers } from '@/store/sortMembers';
 
 export type BoardParams = {
   slug: string;
@@ -94,6 +96,7 @@ function BoardDetail() {
       const newBoard = { ...res?.data[0] };
       // sắp sếp column
       newBoard.columns = SortColumns(newBoard);
+      newBoard.members = SortMembers(newBoard);
       // sắp xếp card
       newBoard?.columns?.map((column: any) => {
         if (isEmpty(column?.cards)) {
@@ -331,6 +334,7 @@ function BoardDetail() {
           </Text>
 
           <Tooltip
+            placement='bottom'
             title={
               data?.type === 'public'
                 ? 'Bất kỳ ai trên mạng internet đều có thể xem bảng này. Chỉ các thành vieecn bảng mới có quyền sửa.'
@@ -348,13 +352,22 @@ function BoardDetail() {
           <div className='flex gap-2'>
             {data?.members?.slice(0, MAX_MEMBER)?.map((item: any) => {
               return (
-                <Tooltip key={item?._id} title={item?.name}>
-                  <img
-                    src='/Images/avt-default.jpg'
-                    alt='logo'
-                    className='w-[34px] h-[34px] rounded-full cursor-pointer'
-                  />
-                </Tooltip>
+                <div className='relative' key={item?._id}>
+                  <Tooltip title={item?.name}>
+                    <img
+                      src={item?.avatar}
+                      alt='logo'
+                      className='w-[34px] h-[34px] rounded-full cursor-pointer border'
+                    />
+                  </Tooltip>
+                  {item?._id === data?.creator && (
+                    <Tooltip title={'Quản trị viên'}>
+                      <div className='absolute bottom-[-2px] right-[-2px] px-[4px] bg-red-500 rounded-full cursor-pointer'>
+                        <Icon icon='icon-chevrons-up' className='w-[10px] h-[10px] text-white' />
+                      </div>
+                    </Tooltip>
+                  )}
+                </div>
               );
             })}
             {remainingCount && (
@@ -388,7 +401,7 @@ function BoardDetail() {
                 <DndContext
                   sensors={sensors}
                   // thuật toán phát hiện va trạm
-                  // collisionDetection={closestCorners}
+                  collisionDetection={closestCorners}
                   onDragStart={handleDragStart}
                   onDragOver={handleDragOver}
                   onDragEnd={handleDragEnd}

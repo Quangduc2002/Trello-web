@@ -19,6 +19,7 @@ function FormRegister({ handleToggle }: IFormRegister) {
     manual: true,
     onSuccess: (res) => {
       toast.success('Đăng kí thành công.');
+      form.resetFields();
     },
     onError: (error) => {
       toast.error(error.message);

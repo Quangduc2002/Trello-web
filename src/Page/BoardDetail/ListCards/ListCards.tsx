@@ -121,8 +121,8 @@ function ListCards({ dataCard }: IBoardContent) {
       <ModalDescription data={dataCard}>
         <div
           className={`bg-[--background-modal] px-[12px] py-[8px] rounded-xl z-10 
-          ${dataCard?.FE_PlaceholderCard ? 'invisible' : 'visible'} 
-          ${editCardId === dataCard?._id ? 'hidden' : 'block'}
+            ${editCardId === dataCard?._id ? 'hidden' : 'block'}
+            ${dataCard?.FE_PlaceholderCard ? 'hidden' : 'block'} 
           `}
         >
           <div className='flex justify-between items-center gap-2 '>

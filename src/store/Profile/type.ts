@@ -4,6 +4,7 @@ export interface TProfile {
   _id: string;
   email: string;
   name: string;
+  avatar: string;
 }
 
 // @ts-ignore

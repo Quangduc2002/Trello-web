@@ -4,7 +4,7 @@ import { useRequest } from 'ahooks';
 import { serviceGetProfile } from './service';
 
 export const useProfileInitial = () => {
-  const [profile, setProfile] = useAtom(atomProfiole);
+  const [, setProfile] = useAtom(atomProfiole);
   const requestProfile = useRequest(serviceGetProfile, {
     manual: true,
     onSuccess: (res) => {

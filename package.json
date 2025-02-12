@@ -37,6 +37,7 @@
     "csvgtocss": "^0.1.1",
     "dayjs": "^1.11.13",
     "esno": "^4.8.0",
+    "firebase": "^11.3.1",
     "jotai": "^2.11.0",
     "lodash": "^4.17.21",
     "postcss": "^8.4.49",
@@ -47,6 +48,7 @@
     "react-router-dom": "^7.1.1",
     "sonner": "^1.7.1",
     "tailwindcss": "^3.4.17",
+    "uuid": "^11.0.5",
     "xss": "^1.0.15"
   },
   "devDependencies": {
