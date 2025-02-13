@@ -20,7 +20,7 @@ function FormSignIn({ handleToggle }: IFormSignIn) {
   const { run } = useProfileInitial();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const { run: runLogin } = useRequest(serviceLogin, {
+  const { run: runLogin, loading } = useRequest(serviceLogin, {
     manual: true,
     onSuccess: (res) => {
       toast.success('Đăng nhập thành công.');
@@ -75,7 +75,7 @@ function FormSignIn({ handleToggle }: IFormSignIn) {
           </Row>
 
           <div className='flex justify-end gap-2 mt-2'>
-            <Button htmlType='submit' type='trello-primary'>
+            <Button htmlType='submit' type='trello-primary' loading={loading} disabled={loading}>
               ĐĂNG NHẬP
             </Button>
 
