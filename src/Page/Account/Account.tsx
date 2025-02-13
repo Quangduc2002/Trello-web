@@ -54,7 +54,7 @@ function Account() {
             Quản lý thông tin cá nhân của bạn, đồng thời kiểm soát thông tin nào người khác xem được
             và ứng dụng nào có thể truy cập.
           </Text>
-          <ModalChangePassword>
+          <ModalChangePassword profile={profile}>
             <Text
               type='body2'
               className='inline text-[--bs-navbar-color] hover:text-[--bs-navbar-hover-color] cursor-pointer'
