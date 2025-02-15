@@ -18,9 +18,10 @@ interface IBoardBar {
   dataColumn: any;
   setAddContentColumn: (value: any) => void;
   addContentColumn?: any;
+  creator: string;
 }
 
-function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoardBar) {
+function ListColumns({ dataColumn, setAddContentColumn, addContentColumn, creator }: IBoardBar) {
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const [data, setData] = useAtom(atomData);
@@ -95,7 +96,7 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoa
 
   return (
     <div
-      className='overflow-auto p-[8px] mx-[8px] w-[300px] min-w-[300px] bg-[--background-header] rounded-xl max-h-full h-max min-h-[100px]'
+      className='overflow-auto h-max max-h-full p-[8px] mx-[8px] w-[300px] min-w-[300px] bg-[--background-header] rounded-xl min-h-[100px]'
       ref={setNodeRef}
       {...attributes}
       {...listeners}
@@ -116,6 +117,7 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoa
               data={dataColumn}
               setAddContentColumn={setAddContentColumn}
               onCancel={onCancel}
+              creator={creator}
             />
           }
           rootClassName='workspace'
@@ -132,65 +134,67 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn }: IBoa
           </Tooltip>
         </Popover>
       </div>
-      {/* overflow-y-scroll */}
-      <div className='flex flex-col gap-2 overflow-x-hidden'>
+
+      <div className='flex flex-col gap-2 overflow-x-hidden overflow-y-scroll'>
         {dataColumn?.cards?.length > 0 && (
           <SortableContext
             items={dataColumn?.cards?.map((item: any) => item?._id)}
             strategy={verticalListSortingStrategy}
           >
             {dataColumn?.cards?.map((item: any) => (
-              <ListCards key={item?._id} dataCard={item} />
+              <ListCards key={item?._id} dataCard={item} creator={creator} />
             ))}
           </SortableContext>
         )}
       </div>
-      <Form layout='vertical' form={form} className='form-card mt-2'>
-        {addContentColumn !== dataColumn?._id ? (
-          <div
-            onClick={() => setAddContentColumn(dataColumn?._id)}
-            className='text-[--brand-social] cursor-pointer pb-2'
-          >
-            <div className='flex gap-2 items-center py-2 px-4 hover:bg-[--background-modal-hover] rounded-[4px]'>
-              <Icon icon='icon-plus' className='text-[18px] !text-[--brand-social]' />
-              <Text type='body1'>Thêm thẻ</Text>
-            </div>
-          </div>
-        ) : (
-          <>
-            <Form.Item
-              name='title'
-              rules={[{ whitespace: true, required: true, message: 'Vui lòng không để trống !' }]}
+      <div>
+        <Form layout='vertical' form={form} className='form-card mt-2'>
+          {addContentColumn !== dataColumn?._id ? (
+            <div
+              onClick={() => setAddContentColumn(dataColumn?._id)}
+              className='text-[--brand-social] cursor-pointer pb-2'
             >
-              <InputText placeholder='Nhập nội dung' />
-            </Form.Item>
-            <div className='flex gap-2 mt-2 items-center pb-2'>
-              <Form.Item dependencies={['title']}>
-                {({ getFieldsValue }) => {
-                  const { title } = getFieldsValue();
-                  const disabled = !title || !title.trim();
-                  return (
-                    <Button
-                      type='trello-primary'
-                      className='!px-[20px]'
-                      onClick={() => handleAddCard(dataColumn)}
-                      disabled={disabled}
-                    >
-                      <Text type='body2'>Thêm thẻ</Text>
-                    </Button>
-                  );
-                }}
-              </Form.Item>
-              <div
-                onClick={hanldeCancel}
-                className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
-              >
-                <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color]' />
+              <div className='flex gap-2 items-center py-2 px-4 hover:bg-[--background-modal-hover] rounded-[4px]'>
+                <Icon icon='icon-plus' className='text-[18px] !text-[--brand-social]' />
+                <Text type='body1'>Thêm thẻ</Text>
               </div>
             </div>
-          </>
-        )}
-      </Form>
+          ) : (
+            <>
+              <Form.Item
+                name='title'
+                rules={[{ whitespace: true, required: true, message: 'Vui lòng không để trống !' }]}
+              >
+                <InputText placeholder='Nhập nội dung' />
+              </Form.Item>
+              <div className='flex gap-2 mt-2 items-center pb-2'>
+                <Form.Item dependencies={['title']}>
+                  {({ getFieldsValue }) => {
+                    const { title } = getFieldsValue();
+                    const disabled = !title || !title.trim();
+                    return (
+                      <Button
+                        type='trello-primary'
+                        className='!px-[20px]'
+                        onClick={() => handleAddCard(dataColumn)}
+                        disabled={disabled}
+                      >
+                        <Text type='body2'>Thêm thẻ</Text>
+                      </Button>
+                    );
+                  }}
+                </Form.Item>
+                <div
+                  onClick={hanldeCancel}
+                  className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
+                >
+                  <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color]' />
+                </div>
+              </div>
+            </>
+          )}
+        </Form>
+      </div>
     </div>
   );
 }
