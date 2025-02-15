@@ -12,15 +12,18 @@ import { useRequest } from 'ahooks';
 import { serviceEditCard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
 import ModalDescription from './ModalDescription/ModalDescription';
+import { atomProfiole } from '@/store/Profile/type';
 
 interface IBoardContent {
   dataCard: any;
+  creator: string;
 }
 
-function ListCards({ dataCard }: IBoardContent) {
+function ListCards({ dataCard, creator }: IBoardContent) {
   const [form] = Form.useForm();
   const [editCardId, setEditCardId] = useAtom(atomEditCard);
   const [data] = useAtom(atomData);
+  const [profile] = useAtom(atomProfiole);
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: dataCard?._id,
@@ -141,23 +144,25 @@ function ListCards({ dataCard }: IBoardContent) {
                   ></Icon>
                 </li>
               </Tooltip>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                }}
-              >
-                <ModalaDeleteCard data={dataCard}>
-                  <Tooltip title='Xóa nội dung' placement='bottom'>
-                    <li className='flex items-center gap-2 p-3 rounded-full text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
-                      <Icon
-                        className='text-[12px] min-w-[12px] text-[--bs-navbar-color]'
-                        icon='icon-trash'
-                      ></Icon>
-                    </li>
-                  </Tooltip>
-                </ModalaDeleteCard>
-              </div>
+              {creator === profile?._id && (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                >
+                  <ModalaDeleteCard data={dataCard}>
+                    <Tooltip title='Xóa nội dung' placement='bottom'>
+                      <li className='flex items-center gap-2 p-3 rounded-full text-[--bs-navbar-color] hover:bg-[--background-modal-hover] cursor-pointer'>
+                        <Icon
+                          className='text-[12px] min-w-[12px] text-[--bs-navbar-color]'
+                          icon='icon-trash'
+                        ></Icon>
+                      </li>
+                    </Tooltip>
+                  </ModalaDeleteCard>
+                </div>
+              )}
             </ul>
           </div>
         </div>

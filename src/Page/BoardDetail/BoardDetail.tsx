@@ -36,11 +36,11 @@ import {
   serviceUpdateCards,
   serviceUpdateColumns,
 } from './service';
-import BoardContent from './ListCards/ListCards';
 import ModalInvitation from './ModalInvitation/ModalInvitation';
 import ModalMembers from './ModalMembers/ModalMembers';
 import Seo from '@/components/UI/Seo/Seo';
 import { SortMembers } from '@/store/sortMembers';
+import ListCards from './ListCards/ListCards';
 
 export type BoardParams = {
   slug: string;
@@ -417,6 +417,7 @@ function BoardDetail() {
                         dataColumn={item}
                         setAddContentColumn={setAddContentColumn}
                         addContentColumn={addContentColumn}
+                        creator={data.creator}
                       />
                     ))}
                   </SortableContext>
@@ -426,12 +427,13 @@ function BoardDetail() {
                       <ListColumns
                         dataColumn={activeDragItemData}
                         setAddContentColumn={setAddContentColumn}
+                        creator={data.creator}
                       />
                     )}
 
                     {activeDragItemData?._id &&
                       acctiveDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && (
-                        <BoardContent dataCard={activeDragItemData} />
+                        <ListCards dataCard={activeDragItemData} creator={data.creator} />
                       )}
                   </DragOverlay>
                 </DndContext>
