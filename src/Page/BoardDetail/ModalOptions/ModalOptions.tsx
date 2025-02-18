@@ -18,8 +18,6 @@ function ModalOptions({ data, setAddContentColumn, onCancel, creator }: IModalOp
     onCancel();
   };
 
-  console.log(data);
-
   return (
     <div>
       <ul className='border-b border-[--bs-navbar-color] pb-[8px]'>

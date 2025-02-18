@@ -50,7 +50,12 @@ function ModalDeleteColumn({ children, data }: Iprops) {
     <>
       <span onClick={() => setVisible(true)}>{children}</span>
 
-      <ModalCustom open={visible} onCancel={() => setVisible(false)} className={styles.modal}>
+      <ModalCustom
+        open={visible}
+        onCancel={() => setVisible(false)}
+        className={styles.modal}
+        title='Xóa cột'
+      >
         <Text type='body1' color='text-primary'>
           Bạn có chắc chắn muốn xóa{' '}
           <span className='text-[16px] not-italic font-semibold leading-[22px]'>{data?.title}</span>{' '}
