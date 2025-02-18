@@ -37,10 +37,12 @@ import {
   serviceUpdateColumns,
 } from './service';
 import ModalInvitation from './ModalInvitation/ModalInvitation';
-import ModalMembers from './ModalMembers/ModalMembers';
+import ModalSeeMoreMembers from './ModalSeeMoreMembers/ModalSeeMoreMembers';
 import Seo from '@/components/UI/Seo/Seo';
 import { SortMembers } from '@/store/sortMembers';
 import ListCards from './ListCards/ListCards';
+import ModalListMembers from './ModalListMembers/ModalListMembers';
+import { atomProfiole } from '@/store/Profile/type';
 
 export type BoardParams = {
   slug: string;
@@ -58,6 +60,8 @@ function BoardDetail() {
       activationConstraint: { distance: 10 },
     }),
   );
+
+  const [open, setOpen] = useState(false);
   const [addContentColumn, setAddContentColumn] = useState<any>(null);
   const [acctiveDragItemId, setAcctiveDragItemId] = useState(null);
   const [activeDragItemData, setActiveDragItemData] = useState<any>(null);
@@ -65,12 +69,20 @@ function BoardDetail() {
   const [addColumn, setAddColumn] = useState<boolean>(false);
   const [acctiveDragItemType, setAcctiveDragItemType] = useAtom(atomDragItemType);
   const [data, setData] = useAtom(atomData);
+  const [profile] = useAtom(atomProfiole);
   const MAX_MEMBER = 5;
   const remainingCount =
     data && data?.members && data?.members.length > MAX_MEMBER
       ? data?.members.length - MAX_MEMBER
       : null;
 
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
   const handleCancel = () => {
     setAddColumn(false);
     form.resetFields();
@@ -90,6 +102,7 @@ function BoardDetail() {
     data: dataBoardDetail,
     loading,
     run: runBoardDetail,
+    refresh,
   } = useRequest(serviceBoardDetail, {
     manual: true,
     onSuccess: (res) => {
@@ -370,12 +383,13 @@ function BoardDetail() {
                 </div>
               );
             })}
+
             {remainingCount && (
               <Popover
                 trigger='click'
                 arrow={false}
                 placement='bottomLeft'
-                content={<ModalMembers dataMembers={data?.members} />}
+                content={<ModalSeeMoreMembers data={data} />}
                 rootClassName='workspace'
               >
                 <div className='flex items-center justify-center text-[--bs-navbar-color] w-[34px] h-[34px] rounded-full cursor-pointer bg-[--background-modal-hover]'>
@@ -383,13 +397,48 @@ function BoardDetail() {
                 </div>
               </Popover>
             )}
+
+            {profile?._id === data?.creator && (
+              <Popover
+                trigger='click'
+                arrow={false}
+                placement='bottomRight'
+                content={<ModalListMembers data={data} onRefresh={refresh} />}
+                rootClassName='workspace'
+                open={open}
+                onOpenChange={handleOpenChange}
+                title={
+                  <div className='flex justify-center'>
+                    <Text type='title1-semi-bold' className='text-[--bs-navbar-color]'>
+                      Thành viên
+                    </Text>
+                    <div
+                      onClick={hide}
+                      className='absolute right-[16px] flex hover:bg-[--background-modal-hover] p-[4px] rounded-[6px] cursor-pointer'
+                    >
+                      <Icon
+                        icon='icon-close-line'
+                        className='text-[20px] text-[--bs-navbar-color]'
+                      />
+                    </div>
+                  </div>
+                }
+              >
+                <div className='flex items-center justify-center w-[34px] h-[34px] rounded-full cursor-pointer bg-[--background-header] hover:bg-[--background-modal-hover]'>
+                  <Icon icon='icon-plus' className='text-[--bs-navbar-color]' />
+                </div>{' '}
+              </Popover>
+            )}
           </div>
-          <ModalInvitation>
-            <Button type='trello-primary' className='flex items-center gap-2'>
-              <Icon icon='icon-user-plus' className='text-white' />
-              Thêm thành viên
-            </Button>
-          </ModalInvitation>
+
+          {profile?._id === data?.creator && (
+            <ModalInvitation>
+              <Button type='trello-primary' className='flex items-center gap-2'>
+                <Icon icon='icon-user-plus' className='text-white' />
+                Thêm thành viên
+              </Button>
+            </ModalInvitation>
+          )}
         </Row>
       </div>
 

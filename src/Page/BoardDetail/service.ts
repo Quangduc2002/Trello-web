@@ -9,6 +9,10 @@ export const serviceUpdateColumns = (id: any, data: any) => {
   return axiosInstant.put(`/board/${id}`, data);
 };
 
+export const serviceRemoveMember = (data: any) => {
+  return axiosInstant.put(`/board/remove-member`, data);
+};
+
 // api column
 export const serviceUpdateCards = (id: any, data: any) => {
   return axiosInstant.put(`/column/${id}`, data);
