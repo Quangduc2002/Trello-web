@@ -14,6 +14,10 @@ body {
   text-rendering: optimizeSpeed;
 }
 
+body {
+  overflow: hidden;
+}
+
 :root {
   --background-body: #cececee6;
   --background-header: #bbbbbbe6;

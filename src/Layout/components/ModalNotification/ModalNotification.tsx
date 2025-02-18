@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRequest } from 'ahooks';
 import dayjs from 'dayjs';
 import { Col, Row, Spin } from 'antd';
@@ -33,15 +33,17 @@ interface IProps {
   loading: boolean;
   refresh: () => void;
   onRefresh?: () => void;
+  hide: () => void;
 }
 
-function ModalNotification({ data, refresh, loading, onRefresh }: IProps) {
+function ModalNotification({ data, refresh, loading, onRefresh, hide }: IProps) {
   const requestAcceptNotification = useRequest(serviceAcceptNotification, {
     manual: true,
     onSuccess: () => {
       toast.success('Bạn đã xác nhận tham gia.');
       refresh();
       onRefresh && onRefresh();
+      hide();
     },
     onError: (error) => {
       toast.error(error.message);
