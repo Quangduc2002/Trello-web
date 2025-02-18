@@ -22,8 +22,15 @@ function Header({ onRefresh }: IHeader) {
   const [profile] = useAtom(atomProfiole);
   const { data, refresh, loading } = useRequest(serviceNotification);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [open, setOpen] = useState(false);
   const { Search } = Input;
+  const hide = () => {
+    setOpen(false);
+  };
 
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+  };
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
@@ -98,12 +105,15 @@ function Header({ onRefresh }: IHeader) {
             trigger='click'
             arrow={false}
             placement='bottomRight'
+            open={open}
+            onOpenChange={handleOpenChange}
             content={
               <ModalNotification
                 data={data}
                 refresh={refresh}
                 loading={loading}
                 onRefresh={onRefresh}
+                hide={hide}
               />
             }
             rootClassName='notification fixed max-h-[452px] !bottom-[16px] rounded-[16px] overflow-y-auto'

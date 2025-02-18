@@ -83,6 +83,7 @@ function BoardDetail() {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
+
   const handleCancel = () => {
     setAddColumn(false);
     form.resetFields();
