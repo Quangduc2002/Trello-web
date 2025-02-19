@@ -1,7 +1,9 @@
 import React from 'react';
 
 import classNames from 'classnames';
+
 import { TColor } from '@/styles/color/color.variables';
+
 interface TextProps {
   children: React.ReactNode;
   type?:

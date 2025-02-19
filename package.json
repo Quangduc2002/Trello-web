@@ -59,7 +59,7 @@
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "bumpp": "^9.8.1",
-    "eslint": "^9.16.0",
+    "eslint": "8.57.0",
     "git-scm-hooks": "^0.0.6",
     "prettier": "^2.8.8",
     "sass": "^1.82.0",

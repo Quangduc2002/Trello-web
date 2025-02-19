@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 import { useRequest } from 'ahooks';
 import { serviceDeleteCard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
-import { atomData } from '../Type';
+import { atomData, atomDisable, atomEditCard } from '../Type';
 import { useAtom } from 'jotai';
 
 interface Iprops {
@@ -17,8 +17,10 @@ interface Iprops {
 function ModalDeleteCard({ children, data }: Iprops) {
   const [visible, setVisible] = useState(false);
   const [dataBoards, setDataBoards] = useAtom(atomData);
+  const [, setDisabled] = useAtom(atomDisable);
+  const [, setEditCardId] = useAtom(atomEditCard);
 
-  const { run } = useRequest(serviceDeleteCard, {
+  const { run, loading } = useRequest(serviceDeleteCard, {
     manual: true,
     onSuccess: () => {
       const newBoard = {
@@ -46,16 +48,22 @@ function ModalDeleteCard({ children, data }: Iprops) {
     }
   };
 
+  const onOpen = () => {
+    setVisible(true);
+    setDisabled(true);
+    setEditCardId(null);
+  };
+
+  const onCancel = () => {
+    setVisible(false);
+    setDisabled(false);
+  };
+
   return (
     <>
-      <span onClick={() => setVisible(true)}>{children}</span>
+      <span onClick={onOpen}>{children}</span>
 
-      <ModalCustom
-        open={visible}
-        onCancel={() => setVisible(false)}
-        className={styles.modal}
-        title='Xóa nội dung'
-      >
+      <ModalCustom open={visible} onCancel={onCancel} className={styles.modal} title='Xóa nội dung'>
         <Text type='body1' color='text-primary'>
           Bạn có chắc chắn muốn xóa nội dung{' '}
           <span className='text-[16px] not-italic font-semibold leading-[22px]'>{data?.title}</span>{' '}
@@ -65,15 +73,15 @@ function ModalDeleteCard({ children, data }: Iprops) {
           <Button
             type='trello-negative-secondary'
             className='w-[96px] h-[36px] !p-0'
-            onClick={() => setVisible(false)}
+            onClick={onCancel}
           >
             <Text type='title1-semi-bold'>Huỷ</Text>
           </Button>
           <Button
             type='trello-negative-primary'
             className='w-[96px] h-[32px] !p-0'
-            // disabled={loading}
-            // loading={loading}
+            disabled={loading}
+            loading={loading}
             onClick={onDelete}
           >
             <Text type='title1-semi-bold'>Xoá</Text>
