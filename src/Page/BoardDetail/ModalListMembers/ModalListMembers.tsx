@@ -1,6 +1,7 @@
 import { Icon } from '@/components/UI/IconFont/Icon';
 import Text from '@/components/UI/Text';
 import ModalDeleteMember from '../ModalDeleteMember/ModalDeleteMember';
+import { Tooltip } from 'antd';
 
 interface IProps {
   data: any;
@@ -30,9 +31,14 @@ function ModalListMembers({ data, onRefresh }: IProps) {
 
               {item?._id !== data?.creator && (
                 <ModalDeleteMember data={item} boardId={data?._id} onRefresh={onRefresh}>
-                  <div className='flex hover:bg-[--background-modal-hover] p-[4px] rounded-[6px]'>
-                    <Icon icon='icon-close-line' className='text-[20px] text-[--bs-navbar-color]' />
-                  </div>
+                  <Tooltip title='Xóa thành viên'>
+                    <div className='flex hover:bg-[--background-modal-hover] p-[4px] rounded-[6px]'>
+                      <Icon
+                        icon='icon-close-line'
+                        className='text-[20px] text-[--bs-navbar-color]'
+                      />
+                    </div>
+                  </Tooltip>
                 </ModalDeleteMember>
               )}
             </li>

@@ -5,7 +5,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Form, Tooltip } from 'antd';
 import InputText from '@/components/UI/InputText';
-import { atomData, atomEditCard } from '../Type';
+import { atomData, atomDisable, atomEditCard } from '../Type';
 import { useAtom } from 'jotai';
 import ModalaDeleteCard from '../ModalDeleteCard/ModalDeleteCard';
 import { useRequest } from 'ahooks';
@@ -23,11 +23,13 @@ function ListCards({ dataCard, creator }: IBoardContent) {
   const [form] = Form.useForm();
   const [editCardId, setEditCardId] = useAtom(atomEditCard);
   const [data] = useAtom(atomData);
+  const [disabled, setDisabled] = useAtom(atomDisable);
   const [profile] = useAtom(atomProfiole);
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: dataCard?._id,
     data: { ...dataCard },
+    disabled: disabled,
   });
 
   const style = {
@@ -62,9 +64,15 @@ function ListCards({ dataCard, creator }: IBoardContent) {
 
   const handleEditCard = (e: any) => {
     setEditCardId(dataCard?._id);
+    setDisabled(true);
     form.setFieldValue('title', dataCard?.title);
     e.stopPropagation();
     e.preventDefault();
+  };
+
+  const onCancelEditCard = () => {
+    setEditCardId(null);
+    setDisabled(false);
   };
 
   const onFinish = (values: any) => {
@@ -113,7 +121,7 @@ function ListCards({ dataCard, creator }: IBoardContent) {
             }}
           </Form.Item>
           <div
-            onClick={() => setEditCardId(null)}
+            onClick={onCancelEditCard}
             className='flex items-center justify-center hover:bg-[--background-modal-hover] p-2 rounded-[6px] cursor-pointer'
           >
             <Icon icon='icon-close' className='text-[18px] text-[--bs-navbar-color]' />

@@ -11,7 +11,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { useRequest } from 'ahooks';
 import { serviceAddCard } from '../service';
 import { toast } from '@/components/UI/Toast/toast';
-import { atomData } from '../Type';
+import { atomData, atomDisable } from '../Type';
 import { useAtom } from 'jotai';
 
 interface IBoardBar {
@@ -25,6 +25,7 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn, creato
   const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
   const [data, setData] = useAtom(atomData);
+  const [disabled] = useAtom(atomDisable);
 
   const { run } = useRequest(serviceAddCard, {
     manual: true,
@@ -70,6 +71,7 @@ function ListColumns({ dataColumn, setAddContentColumn, addContentColumn, creato
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: dataColumn._id,
     data: { ...dataColumn },
+    disabled: disabled,
   });
 
   const styleCard = {

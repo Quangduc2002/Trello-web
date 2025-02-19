@@ -2,11 +2,10 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 export var VITE_APP_API = '';
 
-if (process.env.BUILD_MODE === 'dev') {
-  VITE_APP_API = 'http://localhost:8080';
-} else {
-  VITE_APP_API = 'https://trello-api-jk9a.onrender.com';
-}
+VITE_APP_API =
+  process.env.BUILD_MODE === 'dev'
+    ? 'http://localhost:8080'
+    : 'https://trello-api-jk9a.onrender.com';
 
 export const axiosInstant = axios.create({
   baseURL: VITE_APP_API,
@@ -44,14 +43,14 @@ const errorHandler = async (error: AxiosError) => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       window.location.href = '/login';
-      return Promise.reject({ message: 'Refresh token not found' });
+      throw { message: 'Refresh token not found' };
     }
 
     try {
       const { data } = await axiosInstant.post('/auth/refresh-token', { refreshToken });
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
-      axiosInstant.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
+      axiosInstant.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 
       if (originalRequest.data && typeof originalRequest.data === 'string') {
         try {
@@ -70,7 +69,7 @@ const errorHandler = async (error: AxiosError) => {
     }
   }
 
-  return Promise.reject({ ...resError?.data });
+  throw { ...resError?.data };
 };
 
 axiosInstant.interceptors.response.use(

@@ -1,13 +1,19 @@
+/* eslint-disable unicorn/no-nested-ternary */
+import { useState } from 'react';
+
+import { useRequest } from 'ahooks';
+import { Form, Row } from 'antd';
+import { useAtom } from 'jotai';
+import xss from 'xss';
+
+import Button from '@/components/UI/Button/Button';
 import FormEditor from '@/components/UI/FormEditor/FormEditor';
 import ModalCustom from '@/components/UI/Modal';
-import { Form, Row } from 'antd';
-import React, { useState } from 'react';
 import Text from '@/components/UI/Text';
-import Button from '@/components/UI/Button/Button';
-import { useRequest } from 'ahooks';
-import { serviceEditCard } from '../../service';
 import { toast } from '@/components/UI/Toast/toast';
-import xss from 'xss';
+
+import { serviceEditCard } from '../../service';
+import { atomDisable, atomEditCard } from '../../Type';
 
 interface IProps {
   children: React.ReactNode;
@@ -17,6 +23,8 @@ function ModalDescription({ children, data }: IProps) {
   const [form] = Form.useForm();
   const [visible, setVisible] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>(false);
+  const [, setDisabled] = useAtom(atomDisable);
+  const [, setEditCardId] = useAtom(atomEditCard);
 
   const { run, loading } = useRequest(serviceEditCard, {
     manual: true,
@@ -32,6 +40,13 @@ function ModalDescription({ children, data }: IProps) {
   const onCancel = () => {
     setVisible(false);
     setShowEdit(false);
+    setDisabled(false);
+  };
+
+  const onOpen = () => {
+    setVisible(true);
+    setDisabled(true);
+    setEditCardId(null);
   };
 
   const onFinish = (values: any) => {
@@ -46,7 +61,7 @@ function ModalDescription({ children, data }: IProps) {
   };
   return (
     <>
-      <span onClick={() => setVisible(true)}>{children}</span>
+      <span onClick={onOpen}>{children}</span>
 
       <ModalCustom
         className='!max-w-[800px] modal-description'

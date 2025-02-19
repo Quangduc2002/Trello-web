@@ -60,7 +60,6 @@ function BoardDetail() {
       activationConstraint: { distance: 10 },
     }),
   );
-
   const [open, setOpen] = useState(false);
   const [addContentColumn, setAddContentColumn] = useState<any>(null);
   const [acctiveDragItemId, setAcctiveDragItemId] = useState(null);
@@ -478,6 +477,7 @@ function BoardDetail() {
                         dataColumn={activeDragItemData}
                         setAddContentColumn={setAddContentColumn}
                         creator={data.creator}
+                        addContentColumn={addContentColumn}
                       />
                     )}
 
