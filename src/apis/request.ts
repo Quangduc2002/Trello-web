@@ -3,9 +3,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 export var VITE_APP_API = '';
 
 VITE_APP_API =
-  process.env.BUILD_MODE === 'dev'
-    ? 'http://localhost:8080'
-    : 'https://trello-api-jk9a.onrender.com';
+  process.env.BUILD_MODE === 'dev' ? process.env.DOAMIN_DEV : process.env.DOAMIN_PRODUCTION;
 
 export const axiosInstant = axios.create({
   baseURL: VITE_APP_API,
