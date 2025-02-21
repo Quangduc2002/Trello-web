@@ -12,6 +12,12 @@ export const axiosInstant = axios.create({
   },
 });
 
+const navigateLogin = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  window.location.href = '/login';
+};
+
 axiosInstant.interceptors.request.use(
   async (config: any) => {
     const accessToken = localStorage.getItem('accessToken');
@@ -35,13 +41,11 @@ const errorHandler = async (error: AxiosError) => {
   const resError: AxiosResponse<any> | undefined = error.response;
   const originalRequest = resError?.config;
 
-  if (resError && resError.status === 401 && originalRequest) {
+  if (resError && resError.status === 401) {
     const refreshToken = localStorage.getItem('refreshToken');
     if (!refreshToken) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      window.location.href = '/login';
-      throw { message: 'Refresh token not found' };
+      navigateLogin();
+      throw new Error('Refresh token not found');
     }
 
     try {
@@ -50,19 +54,19 @@ const errorHandler = async (error: AxiosError) => {
       localStorage.setItem('refreshToken', data.refreshToken);
       axiosInstant.defaults.headers.common.Authorization = `Bearer ${data.accessToken}`;
 
-      if (originalRequest.data && typeof originalRequest.data === 'string') {
-        try {
-          originalRequest.data = JSON.parse(originalRequest.data);
-        } catch (error) {
-          console.warn('JSON parse error:', error);
+      if (originalRequest) {
+        if (originalRequest.data && typeof originalRequest.data === 'string') {
+          try {
+            originalRequest.data = JSON.parse(originalRequest.data);
+          } catch (error) {
+            console.warn('JSON parse error:', error);
+          }
         }
+        return axiosInstant(originalRequest);
       }
-      return axiosInstant(originalRequest);
-    } catch (error: any) {
-      if (error?.response?.status === 401) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+    } catch {
+      if (error?.status === 401) {
+        navigateLogin();
       }
     }
   }

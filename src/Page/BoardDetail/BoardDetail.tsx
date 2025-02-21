@@ -366,7 +366,10 @@ function BoardDetail() {
             {data?.members?.slice(0, MAX_MEMBER)?.map((item: any) => {
               return (
                 <div className='relative' key={item?._id}>
-                  <Tooltip title={item?.name}>
+                  <Tooltip
+                    title={item?.name}
+                    placement={data?.members?.at(-1)?._id === item?._id ? 'bottomRight' : 'bottom'}
+                  >
                     <img
                       src={item?.avatar}
                       alt='logo'
@@ -374,7 +377,7 @@ function BoardDetail() {
                     />
                   </Tooltip>
                   {item?._id === data?.creator && (
-                    <Tooltip title={'Quản trị viên'}>
+                    <Tooltip title={'Quản trị viên'} placement='bottom'>
                       <div className='absolute bottom-[-2px] right-[-2px] px-[4px] bg-red-500 rounded-full cursor-pointer'>
                         <Icon icon='icon-chevrons-up' className='w-[10px] h-[10px] text-white' />
                       </div>

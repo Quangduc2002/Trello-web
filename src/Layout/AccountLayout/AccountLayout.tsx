@@ -9,7 +9,7 @@ function AccountLayout() {
       <Suspense fallback={undefined}>
         <Header />
 
-        <div className='flex h-[calc(100%-60px)]'>
+        <div className='flex h-[calc(100%-60px)] '>
           <main className='w-full h-full'>
             <Outlet />
           </main>

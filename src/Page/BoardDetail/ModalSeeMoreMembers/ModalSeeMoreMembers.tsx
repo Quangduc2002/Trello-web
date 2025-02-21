@@ -29,7 +29,7 @@ function ModalSeeMoreMembers({ data }: IProps) {
                 />
               </Tooltip>
               {item?._id === data?.creator && (
-                <Tooltip title={'Quản trị viên'}>
+                <Tooltip title={'Quản trị viên'} placement='bottom'>
                   <div className='absolute bottom-[-2px] right-[-2px] px-[4px] bg-red-500 rounded-full cursor-pointer'>
                     <Icon icon='icon-chevrons-up' className='w-[10px] h-[10px] text-white' />
                   </div>

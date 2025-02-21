@@ -1,6 +1,6 @@
 {
   "prefix": "icon",
-  "lastModified": 1739348233,
+  "lastModified": 1740110980,
   "icons": {
     "alt-arrow-down": {
       "body": "<path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M4.43 8.512a.75.75 0 011.058-.081L12 14.012l6.512-5.581a.75.75 0 11.976 1.138l-7 6a.75.75 0 01-.976 0l-7-6a.75.75 0 01-.081-1.057\" clip-rule=\"evenodd\"/>",
@@ -49,6 +49,10 @@
     "copy": {
       "body": "<path fill=\"currentColor\" d=\"M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h140.1l67.9 67.9V320c0 8.8-7.2 16-16 16m-192 48h192c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9l-67.8-67.9c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64v256c0 35.3 28.7 64 64 64M64 128c-35.3 0-64 28.7-64 64v256c0 35.3 28.7 64 64 64h192c35.3 0 64-28.7 64-64v-32h-48v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h32v-48z\"/>",
       "width": 448
+    },
+    "description": {
+      "body": "<path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M4 5a1 1 0 000 2h16a1 1 0 100-2zm0 4a1 1 0 000 2h16a1 1 0 100-2zm-1 5a1 1 0 011-1h16a1 1 0 110 2H4a1 1 0 01-1-1m1 3a1 1 0 100 2h10a1 1 0 100-2z\" clip-rule=\"evenodd\"/>",
+      "height": 24
     },
     "download": {
       "body": "<g fill=\"currentColor\" stroke-width=\"0\"><path fill=\"none\" d=\"M0 0h24v24H0z\"/><path d=\"M19 9h-4V3H9v6H5l7 7zM5 18v2h14v-2z\"/></g>",
