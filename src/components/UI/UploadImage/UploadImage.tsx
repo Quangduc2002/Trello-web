@@ -60,7 +60,7 @@ function UploadImage({
           <img
             src={value?.url ? value?.url : value}
             alt=''
-            className={'w-[150px] h-[150px] rounded-full object-cover'}
+            className={'w-[150px] h-[150px] rounded-full object-cover border-2'}
           />
         )}
         <Upload

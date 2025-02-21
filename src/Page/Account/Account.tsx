@@ -57,7 +57,7 @@ function Account() {
           <ModalChangePassword profile={profile}>
             <Text
               type='body2'
-              className='inline text-[--bs-navbar-color] hover:text-[--bs-navbar-hover-color] cursor-pointer'
+              className='inline text-[--bs-navbar-color] hover:text-[--bs-navbar-hover-color] cursor-pointer text-xl'
             >
               Đổi mật khẩu
             </Text>
@@ -73,7 +73,7 @@ function Account() {
               <img
                 src={profile?.avatar}
                 alt='Logo'
-                className='h-[100px] w-[100px] rounded-full border-2 hover:opacity-80 cursor-pointer'
+                className='h-[100px] w-[100px] rounded-full border-2'
               />
               <ModalUploadImage dataProfile={profile}>
                 <div className='absolute h-[34px] p-2 right-0 bottom-0 bg-[--background-body] hover:opacity-80 cursor-pointer rounded-full'>

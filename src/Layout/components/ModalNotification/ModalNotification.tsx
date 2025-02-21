@@ -127,7 +127,7 @@ function ModalNotification({ data, refresh, loading, onRefresh, hide }: IProps) 
               <div>
                 <img alt='no image' src='/Images/taco.svg' className='m-auto' />
                 <Text type='body1' className='text-[--bs-navbar-color] text-center mt-4'>
-                  Không có thông báo chưa đọc
+                  Không có thông báo
                 </Text>
               </div>
             )}
